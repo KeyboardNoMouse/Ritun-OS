@@ -366,7 +366,6 @@
                 startSystem() {
                     this.needsClick = false;
                     
-                    // Small delay to ensure the overlay fades before audio hits hard
                     setTimeout(() => {
                         this.playBootSound();
                     }, 200);
@@ -378,38 +377,55 @@
                     }, 500);
                 },
 
+                // NEW SMOOTH CELESTIAL BOOT SOUND
                 playBootSound() {
                     try {
                         if (!window.AudioContext && !window.webkitAudioContext) return;
                         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                         if (audioCtx.state === 'suspended') audioCtx.resume();
                         
-                        const osc1 = audioCtx.createOscillator();
-                        const osc2 = audioCtx.createOscillator();
-                        const gainNode = audioCtx.createGain();
+                        const t = audioCtx.currentTime;
+                        const masterGain = audioCtx.createGain();
+                        masterGain.connect(audioCtx.destination);
+                        masterGain.gain.value = 0.3; // Lower volume for comfort
                         
-                        osc1.type = 'sine';
-                        osc2.type = 'sawtooth';
+                        // 1. Deep Space Drone (Warm Pad)
+                        const drone = audioCtx.createOscillator();
+                        const droneGain = audioCtx.createGain();
+                        drone.type = 'sine';
+                        drone.frequency.setValueAtTime(65.41, t); // Low C
                         
-                        osc1.frequency.setValueAtTime(55, audioCtx.currentTime); 
-                        osc2.frequency.setValueAtTime(110, audioCtx.currentTime); 
+                        droneGain.gain.setValueAtTime(0, t);
+                        droneGain.gain.linearRampToValueAtTime(0.4, t + 2); // Swell in
+                        droneGain.gain.linearRampToValueAtTime(0, t + 5); // Fade out
                         
-                        osc1.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 1.5);
-                        osc2.frequency.exponentialRampToValueAtTime(220, audioCtx.currentTime + 1.5);
+                        drone.connect(droneGain);
+                        droneGain.connect(masterGain);
+                        drone.start(t);
+                        drone.stop(t + 5);
+
+                        // 2. High Celestial Chime (C Major 9 Chord)
+                        const playChime = (freq, delay, vol) => {
+                            const osc = audioCtx.createOscillator();
+                            const gain = audioCtx.createGain();
+                            osc.type = 'sine';
+                            osc.frequency.setValueAtTime(freq, t + delay);
+                            
+                            gain.gain.setValueAtTime(0, t + delay);
+                            gain.gain.linearRampToValueAtTime(vol, t + delay + 0.1);
+                            gain.gain.exponentialRampToValueAtTime(0.001, t + delay + 3);
+                            
+                            osc.connect(gain);
+                            gain.connect(masterGain);
+                            osc.start(t + delay);
+                            osc.stop(t + delay + 3);
+                        };
+
+                        playChime(523.25, 0.5, 0.2);  // C5
+                        playChime(783.99, 0.6, 0.15); // G5
+                        playChime(987.77, 0.7, 0.1);  // B5
+                        playChime(1174.66, 0.8, 0.05); // D6
                         
-                        osc1.connect(gainNode);
-                        osc2.connect(gainNode);
-                        gainNode.connect(audioCtx.destination);
-                        
-                        gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-                        gainNode.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 0.8);
-                        gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime + 2.0);
-                        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 3.5);
-                        
-                        osc1.start(audioCtx.currentTime);
-                        osc2.start(audioCtx.currentTime);
-                        osc1.stop(audioCtx.currentTime + 3.5);
-                        osc2.stop(audioCtx.currentTime + 3.5);
                     } catch (e) { console.error("Audio error:", e); }
                 },
 

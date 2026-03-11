@@ -47,7 +47,7 @@
          class="absolute inset-0 z-[9999] bg-[#020205] flex flex-col items-center justify-center font-mono">
          
          <div class="animate-float">
-             <button @click="startSystem()" class="group relative w-56 h-56 flex items-center justify-center focus:outline-none transition-transform duration-700 hover:scale-105">
+             <button @click.once="startSystem()" class="group relative w-56 h-56 flex items-center justify-center focus:outline-none transition-transform duration-700 hover:scale-105">
                  <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-600 via-purple-600 to-transparent blur-2xl opacity-40 group-hover:opacity-80 transition-opacity duration-700 animate-spin-slow"></div>
                  <div class="absolute inset-3 rounded-full bg-gradient-to-bl from-cyan-400 via-transparent to-purple-500 blur-xl opacity-30 group-hover:opacity-100 transition-opacity duration-500 animate-spin-reverse"></div>
                  <div class="absolute inset-[6px] bg-[#050505] rounded-full shadow-[inset_0_0_30px_rgba(255,255,255,0.05)] border border-white/5 z-10 flex items-center justify-center transition-all duration-500 group-hover:bg-black group-hover:border-blue-500/30">
@@ -409,7 +409,10 @@
                     this.enableDragging();
                 },
 
-                startSystem() {
+               startSystem() {
+                    // GUARD: If already clicked, ignore any extra clicks!
+                    if (!this.needsClick) return; 
+                    
                     this.needsClick = false;
                     
                     setTimeout(() => {

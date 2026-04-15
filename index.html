@@ -51,7 +51,6 @@
             flex-direction: column;
         }
 
-        /* Fixed Maximize Bug - Uses dvh for perfect mobile scaling & z-index to stay under top bar */
         .is-maximized {
             top: 28px !important;
             left: 0 !important;
@@ -71,7 +70,6 @@
             z-index: -1 !important;
         }
 
-        /* Dragging override to prevent animation stutter */
         .is-dragging {
             transition: none !important;
         }
@@ -147,7 +145,6 @@
             animation: float 6s ease-in-out infinite;
         }
 
-        /* ================= CUSTOM CURSOR STYLES ================= */
         @media (pointer: fine) {
 
             *,
@@ -490,7 +487,8 @@
                     Social Hub</h1>
                 <div
                     class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl px-2 md:px-4 mt-4 md:mt-8 pb-8">
-                    <a href="https://www.linkedin.com/in/ritun-jain-23b683309/" target="_blank"
+                    
+                    <a href="#" @click.prevent="browserView = 'linkedin'; browserUrl = 'linkedin.com/in/ritun-jain-23b683309/'"
                         class="group flex flex-col items-center justify-center p-6 bg-slate-800/50 rounded-xl border border-white/5 hover:bg-[#0077b5] transition-all duration-300">
                         <svg class="w-8 h-8 mb-3 text-gray-300 group-hover:text-white group-hover:scale-110 transition-transform"
                             fill="currentColor" viewBox="0 0 24 24">
@@ -524,7 +522,7 @@
                         <div class="text-xs text-slate-400 group-hover:text-white/80">View Profile</div>
                     </a>
 
-                    <a href="https://www.instagram.com/_ritun_07/" target="_blank"
+                    <a href="#" @click.prevent="browserView = 'instagram'; browserUrl = 'instagram.com/_ritun_07/'"
                         class="group flex flex-col items-center justify-center p-6 bg-slate-800/50 rounded-xl border border-white/5 hover:bg-pink-600 transition-all duration-300">
                         <svg class="w-8 h-8 mb-3 text-gray-300 group-hover:text-white group-hover:scale-110 transition-transform"
                             fill="currentColor" viewBox="0 0 24 24">
@@ -534,6 +532,122 @@
                         <div class="text-white font-bold mb-1">Instagram</div>
                         <div class="text-xs text-slate-400 group-hover:text-white/80">@_ritun_07</div>
                     </a>
+                </div>
+            </div>
+
+            <div x-show="browserView === 'linkedin'" x-cloak x-transition.opacity class="absolute inset-0 bg-[#000000] overflow-y-auto text-slate-300 font-sans p-4 md:p-8">
+                <div class="max-w-[780px] mx-auto">
+                    <div class="bg-[#1d2226] rounded-xl border border-white/10 overflow-hidden relative">
+                        <div class="h-32 md:h-48 bg-gradient-to-r from-[#195679] to-[#0a66c2]"></div>
+                        <div class="px-6 pb-6 relative">
+                            <img src="pfp.png" class="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-[#1d2226] absolute -top-14 md:-top-18 left-6 bg-[#1d2226]" alt="Ritun Jain">
+                            <div class="pt-16 md:pt-20">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h1 class="text-2xl text-white font-bold">Ritun Jain</h1>
+                                        <p class="text-sm mt-1 text-gray-300">Full Stack Developer | AI & ML Engineering Student @ NIE Mysuru</p>
+                                        <p class="text-xs text-gray-400 mt-2">Mysuru, Karnataka, India · <span class="text-[#70b5f9] font-semibold hover:underline cursor-pointer">Contact info</span></p>
+                                        <p class="text-xs text-[#70b5f9] mt-1 font-semibold">500+ connections</p>
+                                    </div>
+                                    <div class="hidden md:flex flex-col text-sm text-white space-y-2">
+                                        <div class="flex items-center gap-2 hover:text-[#70b5f9] cursor-pointer transition">
+                                            <div class="w-6 h-6 bg-white rounded flex items-center justify-center"><span class="text-black text-[10px] font-bold">NIE</span></div>
+                                            <span class="text-sm font-semibold">The National Institute of Engineering</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 mt-4">
+                                    <button class="bg-[#0a66c2] hover:bg-[#004182] text-white font-bold py-1.5 px-4 rounded-full text-sm transition">Connect</button>
+                                    <button class="bg-transparent border border-white hover:bg-white/10 text-white font-bold py-1.5 px-4 rounded-full text-sm transition">Message</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#1d2226] mt-4 rounded-xl border border-white/10 p-6">
+                        <h2 class="text-xl text-white font-bold mb-4">Experience</h2>
+                        <div class="flex gap-4 mb-6">
+                            <div class="w-12 h-12 shrink-0 bg-white rounded flex items-center justify-center">
+                                <span class="text-blue-600 font-bold text-xl">C</span>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-bold">Technical Intern</h3>
+                                <p class="text-sm">Comedkares</p>
+                                <p class="text-xs text-gray-400 mt-1">Mar 2026 - Present</p>
+                                <p class="text-sm mt-2 text-gray-300">Working on UI/UX design and hardware integration. Utilizing Figma, Onshape, and Arduino IDE to build comprehensive project prototypes.</p>
+                            </div>
+                        </div>
+                        <div class="w-full h-px bg-white/10 mb-6"></div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 shrink-0 bg-orange-500 rounded flex items-center justify-center">
+                                <span class="text-white font-bold text-xs text-center leading-tight">YFS</span>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-bold">Student Volunteer</h3>
+                                <p class="text-sm">Youth For Seva</p>
+                                <p class="text-xs text-gray-400 mt-1">2024 - Present</p>
+                                <p class="text-sm mt-2 text-gray-300">Organizing and participating in community outreach programs and social service initiatives.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div x-show="browserView === 'instagram'" x-cloak x-transition.opacity class="absolute inset-0 bg-[#000000] overflow-y-auto text-white font-sans">
+                <div class="max-w-[935px] mx-auto py-8 px-4 md:px-5">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-24 mb-10 border-b border-white/10 pb-10">
+                        <div class="shrink-0 md:ml-16">
+                            <div class="p-1 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-fuchsia-600">
+                                <img src="pfp.png" class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-black object-cover" alt="_ritun_07">
+                            </div>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <div class="flex flex-col md:flex-row items-center gap-4 mb-4">
+                                <h1 class="text-xl font-normal">_ritun_07</h1>
+                                <div class="flex gap-2">
+                                    <button class="bg-[#363636] hover:bg-[#262626] font-semibold py-1.5 px-4 rounded-lg text-sm transition">Following <svg class="inline w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                                    <button class="bg-[#363636] hover:bg-[#262626] font-semibold py-1.5 px-4 rounded-lg text-sm transition">Message</button>
+                                </div>
+                            </div>
+                            <div class="flex justify-center md:justify-start gap-8 mb-4 text-base">
+                                <span><span class="font-bold">12</span> posts</span>
+                                <span><span class="font-bold">482</span> followers</span>
+                                <span><span class="font-bold">390</span> following</span>
+                            </div>
+                            <div class="text-sm">
+                                <p class="font-bold mb-1">Ritun Jain</p>
+                                <p>🎓 B.Tech AI & ML @ NIE Mysuru</p>
+                                <p>💻 Full Stack Architect | Ritun OS</p>
+                                <p>♟️ Chess | Video Editing</p>
+                                <a href="https://ritun.space" target="_blank" class="text-[#e0f1ff] font-semibold mt-1 block">ritun.space</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-12 border-t border-white/10 -mt-[1px] mb-4 text-xs font-semibold tracking-widest text-gray-400">
+                        <div class="border-t border-white text-white pt-4 cursor-pointer flex items-center gap-2">
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24zm-4 7h-8v1h8v-1zm0 5h-8v1h8v-1zm0 5h-8v1h8v-1zm-10-10h-6v5h6v-5zm0 7h-6v5h6v-5z"/></svg> POSTS
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-1 md:gap-4">
+                        <div class="aspect-square bg-gray-800 overflow-hidden cursor-pointer group relative">
+                            <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=400&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition gap-4 font-bold">
+                                <span>❤️ 124</span><span>💬 12</span>
+                            </div>
+                        </div>
+                        <div class="aspect-square bg-gray-800 overflow-hidden cursor-pointer group relative">
+                            <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=400&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition gap-4 font-bold">
+                                <span>❤️ 89</span><span>💬 5</span>
+                            </div>
+                        </div>
+                        <div class="aspect-square bg-gray-800 overflow-hidden cursor-pointer group relative">
+                            <img src="https://images.unsplash.com/photo-1528319725582-ddc096101511?q=80&w=400&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition gap-4 font-bold">
+                                <span>❤️ 210</span><span>💬 34</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -547,8 +661,7 @@
                     </div>
                     <div class="absolute top-[76px] left-[16px]">
                         <div class="relative rounded-full bg-[#2b2d31] p-[6px]">
-                            <img src="pfp.png"
-                                class="w-[80px] h-[80px] rounded-full object-cover border border-[#111214]"
+                            <img src="pfp.png" class="w-[80px] h-[80px] rounded-full object-cover border border-[#111214]"
                                 alt="Avatar">
                             <div
                                 class="absolute bottom-1 right-1 w-[22px] h-[22px] bg-[#23a559] border-4 border-[#2b2d31] rounded-full">
@@ -594,25 +707,25 @@
                 class="absolute inset-0 bg-[#050505] overflow-y-auto text-slate-300 font-sans p-4 md:p-8">
                 <div class="max-w-[800px] mx-auto flex flex-col items-center">
 
-                    <div class="flex flex-col items-center mb-10">
+                    <div class="flex flex-col items-center mb-6 md:mb-10 mt-4 md:mt-0">
                         <div
-                            class="w-24 h-24 rounded-full border-2 border-blue-500/40 p-1 mb-4 shadow-[0_0_20px_rgba(59,130,246,0.15)] relative">
+                            class="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-blue-500/40 p-1 mb-4 shadow-[0_0_20px_rgba(59,130,246,0.15)] relative">
                             <img src="pfp.png" class="w-full h-full rounded-full object-cover bg-slate-800"
                                 alt="GitHub Avatar">
                             <div
                                 class="absolute bottom-0 right-0 w-6 h-6 bg-[#050505] rounded-full flex items-center justify-center border border-white/10 text-xs">
                                 😊</div>
                         </div>
-                        <h1 class="text-2xl font-extrabold text-white tracking-tight">Ritun Jain</h1>
+                        <h1 class="text-xl md:text-2xl font-extrabold text-white tracking-tight">Ritun Jain</h1>
                         <a href="https://github.com/KeyboardNoMouse" target="_blank"
                             class="text-blue-400 hover:text-blue-300 transition-colors mt-1 font-mono text-sm">@KeyboardNoMouse
                             · he/him</a>
-                        <p class="text-slate-400 mt-3 text-center max-w-md text-sm leading-relaxed">
+                        <p class="text-slate-400 mt-3 text-center max-w-md text-xs md:text-sm leading-relaxed">
                             🎓 B.Tech AI & ML @ NIE Mysuru | 🛠️ Python, Django, Tailwind | 💻 Building Ritun OS
                         </p>
                     </div>
 
-                    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 pb-8">
 
                         <a href="#"
                             class="bg-white/5 border border-white/10 hover:border-blue-500/40 rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(59,130,246,0.1)] flex flex-col justify-between group cursor-pointer">
@@ -625,14 +738,14 @@
                                         </path>
                                     </svg>
                                     <h3
-                                        class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                                        class="text-base md:text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
                                         NVMe-Health-Core <span
                                             class="ml-2 text-[10px] font-normal border border-slate-600 rounded-full px-2 py-0.5 text-slate-400">Public</span>
                                     </h3>
                                 </div>
-                                <p class="text-sm text-slate-400 leading-relaxed line-clamp-3">An AI-powered telemetry
-                                    analysis engine and full-stack web dashboard for predicting NVMe drive failures
-                                    using Random Forest and SMOTE.</p>
+                                <p class="text-xs md:text-sm text-slate-400 leading-relaxed line-clamp-3">An AI-powered
+                                    telemetry analysis engine and full-stack web dashboard for predicting NVMe drive
+                                    failures using Random Forest and SMOTE.</p>
                             </div>
                             <div class="flex items-center gap-4 mt-5 text-xs font-medium text-slate-500">
                                 <div class="flex items-center gap-1.5"><span
@@ -652,14 +765,14 @@
                                         </path>
                                     </svg>
                                     <h3
-                                        class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                                        class="text-base md:text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
                                         Ritun-OS <span
                                             class="ml-2 text-[10px] font-normal border border-slate-600 rounded-full px-2 py-0.5 text-slate-400">Public</span>
                                     </h3>
                                 </div>
-                                <p class="text-sm text-slate-400 leading-relaxed line-clamp-3">The source code for
-                                    ritun.space — a web-based desktop experience and portfolio showcasing my journey as
-                                    a Full Stack Developer and AI/ML student.</p>
+                                <p class="text-xs md:text-sm text-slate-400 leading-relaxed line-clamp-3">The source code
+                                    for ritun.space — a web-based desktop experience and portfolio showcasing my journey
+                                    as a Full Stack Developer and AI/ML student.</p>
                             </div>
                             <div class="flex items-center gap-4 mt-5 text-xs font-medium text-slate-500">
                                 <div class="flex items-center gap-1.5"><span
@@ -679,13 +792,13 @@
                                         </path>
                                     </svg>
                                     <h3
-                                        class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                                        class="text-base md:text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
                                         AI_lab <span
                                             class="ml-2 text-[10px] font-normal border border-slate-600 rounded-full px-2 py-0.5 text-slate-400">Public</span>
                                     </h3>
                                 </div>
-                                <p class="text-sm text-slate-400 leading-relaxed line-clamp-3">AI Lab Assignments:
-                                    Implementing Simple Reflex and Goal-Based agents in Python.</p>
+                                <p class="text-xs md:text-sm text-slate-400 leading-relaxed line-clamp-3">AI Lab
+                                    Assignments: Implementing Simple Reflex and Goal-Based agents in Python.</p>
                             </div>
                             <div class="flex items-center gap-4 mt-5 text-xs font-medium text-slate-500">
                                 <div class="flex items-center gap-1.5"><span
@@ -704,13 +817,13 @@
                                         </path>
                                     </svg>
                                     <h3
-                                        class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                                        class="text-base md:text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
                                         Discord-AI-Chatbot <span
                                             class="ml-2 text-[10px] font-normal border border-slate-600 rounded-full px-2 py-0.5 text-slate-400">Public</span>
                                     </h3>
                                 </div>
-                                <p class="text-sm text-slate-400 leading-relaxed line-clamp-3">☁️ Sky is a context-aware
-                                    Discord chatbot built with Python and Google's Gemini API.</p>
+                                <p class="text-xs md:text-sm text-slate-400 leading-relaxed line-clamp-3">☁️ Sky is a
+                                    context-aware Discord chatbot built with Python and Google's Gemini API.</p>
                             </div>
                             <div class="flex items-center gap-4 mt-5 text-xs font-medium text-slate-500">
                                 <div class="flex items-center gap-1.5"><span
@@ -889,7 +1002,7 @@
                 mouseX = e.clientX;
                 mouseY = e.clientY;
 
-                // Fixed: Only trigger hover state on actual clickable items, not the whole window
+                // Fixed: Only trigger hover state on actual clickable items
                 const hoverable = e.target.closest('button, a, input, .cursor-pointer, [cursor-pointer]');
                 if (hoverable) {
                     isHovering = true;

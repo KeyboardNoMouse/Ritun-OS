@@ -1,28 +1,30 @@
-# 💻 Ritun OS Ultimate
+readme_content = """# 🛂 PASSPORT | Ritun Jain
 
-Welcome to the repository for **Ritun OS Ultimate**, an interactive, operating system-themed personal portfolio. 
+Welcome to the source code of my personal portfolio website, **PASSPORT**. Designed with a minimalist, terminal-inspired aesthetic, it serves as an interactive hub for my projects, experiences, and identity as a Full-Stack Developer and AI/ML Engineer.
 
-🚀 **Live Demo:** [https://ritun.space](https://ritun.space)
-
----
-
-## 🌟 About the Project
-This project breaks away from traditional website layouts by offering an immersive, desktop-like experience right in the browser. It serves as a creative and interactive hub to showcase my journey, projects, and skills as a Full Stack Developer and an AI & ML Engineering student.
+🌐 **Live Site:** ritun.space
 
 ## ✨ Features
-* **OS-Themed Interface:** A web-based desktop environment with a familiar, intuitive layout.
-* **Interactive Elements:** Navigate through "applications" and windows to explore different sections (About, Projects, Contact).
-* **Responsive Design:** Optimized to maintain the OS experience across both desktop and mobile devices.
-* **Secure & Fast:** Hosted on GitHub Pages with enforced HTTPS and custom DNS routing.
+- **Interactive Boot Sequence:** A simulated OS kernel boot screen that leads into the main application.
+- **Single Page Application (SPA) Feel:** Smooth, JavaScript-driven tab navigation without page reloads.
+- **Dynamic Content Injection:** Projects, certifications, and experiences are populated dynamically from structured JS arrays, making updates effortless.
+- **Hardware-Accelerated Animations:** GPU-optimized background gradients, grain overlays, and hover effects for a buttery-smooth experience.
+- **Fully Responsive:** Optimized for both desktop and mobile viewing.
 
-## 🛠️ Built With
-* **Frontend:** HTML, CSS, JavaScript *(Update these if you used specific frameworks like React or Vue)*
-* **Deployment:** GitHub Pages
-* **Domain:** Custom DNS configuration (`ritun.space`)
+## 🛠️ Tech Stack
+- **HTML5** (Semantic structuring)
+- **CSS3** (Custom variables, CSS animations, modern flexbox/grid layouts)
+- **Vanilla JavaScript** (DOM manipulation, optimized data-rendering loops)
 
-## 🚀 Local Setup
-To run this project locally on your machine:
+## 🚀 Getting Started
 
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/KeyboardNoMouse/keyboardnomouse.github.io.git](https://github.com/KeyboardNoMouse/keyboardnomouse.github.io.git)
+To run this project locally, simply clone the repository and open the `index.html` file in your browser. No build steps or package managers required.
+
+```bash
+# Clone the repository
+git clone [https://github.com/KeyboardNoMouse/portfolio-website.git](https://github.com/KeyboardNoMouse/portfolio-website.git)
+
+# Navigate to the directory
+cd portfolio-website
+
+# Open index.html in your default browser

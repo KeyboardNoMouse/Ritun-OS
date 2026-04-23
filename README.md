@@ -1,4 +1,4 @@
-# 🚀 PASSPORT — Personal Portfolio
+# Ritun Jain — Personal Portfolio
 
 A futuristic, terminal-inspired personal portfolio website built to showcase my identity, projects, experience, and network.
 

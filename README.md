@@ -72,9 +72,6 @@ Data is stored in arrays inside `script.js`:
 - `EXPERIENCES`
 - `CERTS`
 
-Rendered using:
-```js
-innerHTML + map()
 
 🚀 Getting Started
 1. Clone the repository

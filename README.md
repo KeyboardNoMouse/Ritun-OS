@@ -1,74 +1,44 @@
-# Ritun Jain — Personal Portfolio
+# Personal Portfolio
 
-A futuristic, terminal-inspired personal portfolio website built to showcase my identity, projects, experience, and network.
+A simple and modern personal portfolio website to showcase my skills, projects, and experience.
 
-> “Building the web, one line at a time.”
+## 🧾 About
 
----
+This portfolio represents my work as a **Full Stack Developer & AI/ML enthusiast**.  
+It includes sections for my profile, projects, certifications, and contact links.
 
-## 🧠 Overview
+## ⚙️ Tech Stack
 
-**PASSPORT** is a modern, interactive portfolio designed with a **boot-sequence UI** and a **system-interface aesthetic**.  
-It reflects my journey as a **Full Stack Developer & AI/ML Engineer in training**.
-
-The site is structured like a digital identity system with sections such as:
-- Identity
-- Projects
-- Certifications
-- Network
-
----
-
-## ✨ Features
-
-- ⚡ **Boot Animation System**  
-  Interactive startup sequence before entering the main app
-
-- 🧭 **Tab-based Navigation (SPA Style)**  
-  Smooth switching between sections without page reload
-
-- 🧑‍💻 **Dynamic Content Rendering**  
-  Projects, experience, and certifications are injected via JavaScript
-
-- 🎨 **Modern UI/UX**
-  - Dark futuristic theme
-  - Subtle animations & hover effects
-  - Glassmorphism + gradient background
-
-- 📱 **Fully Responsive Design**
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
 - HTML5  
-- CSS3 (Custom properties + animations)  
-- Vanilla JavaScript  
+- CSS3  
+- JavaScript  
 
-### Fonts & Assets
-- Google Fonts: `Syne`, `Space Mono`
+## 📁 Project Structure
 
-### Concepts Used
-- DOM Manipulation  
-- Event-driven UI  
-- Component-style rendering (via JS arrays)  
-- CSS animations & transitions  
 
----
+portfolio/
+├── index.html
+├── styles.css
+├── script.js
+└── pfp.jpg
 
-## ⚙️ How It Works
 
-### 🔹 Boot Sequence
-- Triggered on click
-- Simulates system loading with:
-  - Progress bar
-  - Dynamic messages
-- Transitions into main UI
+## 🚀 How to Run
 
-### 🔹 Dynamic Sections
-Data is stored in arrays inside `script.js`:
-- `PROJECTS`
-- `EXPERIENCES`
-- `CERTS`
+1. Download or clone the project  
+2. Open `index.html` in your browser  
 
+## ✏️ Customization
+
+- Edit `index.html` to update personal details  
+- Edit `script.js` to add projects, experience, and certifications  
+- Edit `styles.css` to change the design  
+
+## 🔗 Links
+
+- LinkedIn: https://www.linkedin.com  
+- GitHub: https://github.com  
+
+## 📄 License
+
+Free to use for personal projects.

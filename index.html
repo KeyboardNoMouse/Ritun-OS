@@ -1,1488 +1,344 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"
-        content="Ritun Jain - Full Stack Developer Portfolio. BE AI & ML student at NIE Mysuru.">
-    <meta name="keywords" content="Ritun Jain, Portfolio, Web Developer, AI, Machine Learning, NIE Mysuru">
-    <meta property="og:title" content="Ritun OS Portfolio">
-    <meta property="og:description"
-        content="An interactive, web-based desktop experience showcasing my projects and skills.">
-    <title>Ritun OS Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
-    <style>
-        [x-cloak] {
-            display: none !important;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .glass {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .window-node {
-            position: absolute;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            will-change: transform, top, left, width, height, opacity;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .is-maximized {
-            top: 28px !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: calc(100dvh - 28px) !important;
-            max-width: 100vw !important;
-            max-height: calc(100dvh - 28px) !important;
-            border-radius: 0 !important;
-            transform: none !important;
-            z-index: 9980 !important;
-        }
-
-        .is-minimized {
-            opacity: 0 !important;
-            transform: scale(0.7) translateY(300px) !important;
-            pointer-events: none !important;
-            z-index: -1 !important;
-        }
-
-        .is-dragging {
-            transition: none !important;
-        }
-
-        .cursor-blink {
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            50% {
-                opacity: 0;
-            }
-        }
-
-        .token.comment {
-            color: #6a9955;
-        }
-
-        .token.keyword {
-            color: #569cd6;
-        }
-
-        .token.string {
-            color: #ce9178;
-        }
-
-        .token.function {
-            color: #dcdcaa;
-        }
-
-        .token.number {
-            color: #b5cea8;
-        }
-
-        .bg-grid {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        }
-
-        @keyframes spin-slow {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes spin-reverse {
-            100% {
-                transform: rotate(-360deg);
-            }
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        .animate-spin-slow {
-            animation: spin-slow 8s linear infinite;
-        }
-
-        .animate-spin-reverse {
-            animation: spin-reverse 6s linear infinite;
-        }
-
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* ================= CUSTOM CURSOR STYLES ================= */
-        @media (pointer: fine) {
-
-            *,
-            *::before,
-            *::after {
-                cursor: none !important;
-            }
-
-            #cursor-rocket {
-                position: fixed;
-                top: 0;
-                left: 0;
-                font-size: 14px;
-                pointer-events: none;
-                z-index: 999999;
-                will-change: transform;
-                filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.6));
-                margin-left: -7px;
-                margin-top: -7px;
-            }
-        }
-
-        @media (pointer: coarse) {
-            #cursor-rocket {
-                display: none !important;
-            }
-
-            *,
-            *::before,
-            *::after {
-                cursor: auto !important;
-            }
-        }
-    </style>
+        content="Ritun Jain — Full Stack Developer & AI/ML Engineer. Building the web, one line at a time." />
+    <title>PASSPORT | Ritun Jain</title>
+    <link rel="icon" href="https://img.icons8.com/ios-filled/50/ffffff/code.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body class="bg-black h-screen w-screen overflow-hidden select-none font-sans text-white relative" x-data="osData()"
-    x-init="initOS()">
-
-    <div id="cursor-rocket">🚀</div>
-
-    <div x-show="needsClick" x-transition:leave="transition-opacity duration-1000 ease-in"
-        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-        class="absolute inset-0 z-[9990] bg-[#020205] flex flex-col items-center justify-center font-mono">
-
-        <div class="animate-float">
-            <button @click.once="startSystem()" aria-label="Initiate System"
-                class="group relative w-56 h-56 flex items-center justify-center focus:outline-none transition-transform duration-700 hover:scale-105">
-                <div
-                    class="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-600 via-purple-600 to-transparent blur-2xl opacity-40 group-hover:opacity-80 transition-opacity duration-700 animate-spin-slow">
-                </div>
-                <div
-                    class="absolute inset-3 rounded-full bg-gradient-to-bl from-cyan-400 via-transparent to-purple-500 blur-xl opacity-30 group-hover:opacity-100 transition-opacity duration-500 animate-spin-reverse">
-                </div>
-                <div
-                    class="absolute inset-[6px] bg-[#050505] rounded-full shadow-[inset_0_0_30px_rgba(255,255,255,0.05)] border border-white/5 z-10 flex items-center justify-center transition-all duration-500 group-hover:bg-black group-hover:border-blue-500/30">
-                    <div class="flex flex-col items-center">
-                        <svg class="w-8 h-8 text-white/30 mb-3 group-hover:text-blue-400 group-hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)] transition-all duration-500"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                            </path>
-                        </svg>
-                        <span
-                            class="text-xs font-light tracking-[0.4em] text-white/40 group-hover:text-white transition-colors duration-500 group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">INITIATE</span>
-                    </div>
-                </div>
-                <div class="absolute inset-[-4px] rounded-full animate-spin-slow z-20 pointer-events-none">
-                    <div
-                        class="absolute top-4 left-[20%] w-1.5 h-1.5 bg-white rounded-full blur-[1px] shadow-[0_0_10px_rgba(255,255,255,1)] group-hover:scale-150 group-hover:bg-blue-300 transition-all duration-500">
-                    </div>
-                </div>
-            </button>
-        </div>
-    </div>
-
-    <div x-show="bootOpen && !needsClick" x-transition:leave="transition-all ease-in duration-[1200ms]"
-        x-transition:leave-start="opacity-100 scale-100 blur-0" x-transition:leave-end="opacity-0 scale-[1.5] blur-xl"
-        class="absolute inset-0 z-[100] bg-[#050505]/95 backdrop-blur-md flex flex-col items-center justify-center overflow-hidden font-mono text-white pointer-events-none"
-        x-cloak>
-
-        <div class="absolute inset-0 bg-grid transition-opacity duration-1000 opacity-30"
-            :class="bootPhase === 3 ? '!opacity-0' : ''"></div>
-
-        <div class="relative flex flex-col items-center z-10">
-            <div x-show="bootPhase >= 2" x-cloak x-transition:enter="transition-all duration-1000 ease-out"
-                x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100"
-                class="relative w-48 h-48 flex items-center justify-center">
-                <div
-                    class="absolute inset-0 border-t-2 border-l-2 border-transparent border-t-blue-500 border-l-blue-500 rounded-full animate-spin-slow opacity-80">
-                </div>
-                <div
-                    class="absolute inset-4 border-b-2 border-r-2 border-transparent border-b-purple-500 border-r-purple-500 rounded-full animate-spin-reverse opacity-80">
-                </div>
-                <div class="absolute inset-12 bg-blue-500/20 rounded-full blur-xl animate-pulse"></div>
-
-                <div class="absolute inset-0 flex flex-col items-center justify-center">
-                    <span class="text-[10px] text-blue-400 tracking-[0.3em] uppercase">System</span>
-                    <span x-show="bootPhase >= 3" x-cloak x-transition.opacity.duration.500ms
-                        class="text-[10px] text-purple-400 tracking-[0.3em] uppercase mt-1">Online</span>
-                </div>
-            </div>
-
-            <div class="mt-10 h-16 flex items-center justify-center text-center px-4">
-                <h1 class="text-3xl md:text-5xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]"
-                    x-text="decodedText"></h1>
-            </div>
-
-            <div x-show="bootPhase >= 1" x-cloak x-transition.opacity.duration.500ms
-                class="mt-8 w-48 md:w-64 h-[2px] bg-gray-900 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 transition-all ease-linear shadow-[0_0_10px_rgba(168,85,247,0.8)]"
-                    :style="`width: ${bootProgress}%`"></div>
-            </div>
-
-            <div class="mt-4 h-4 text-[10px] text-gray-500 uppercase tracking-[0.2em] text-center" x-text="currentLog">
-            </div>
-        </div>
-    </div>
-
-    <div id="desktop-bg"
-        class="absolute inset-0 z-0 bg-cover bg-center transition-all duration-[2500ms] ease-out scale-110 blur-xl opacity-50"
-        :class="{'!scale-100 !blur-0 !opacity-100': !bootOpen && !needsClick}"
-        style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');">
-        <div class="absolute inset-0 bg-black/40"></div>
-    </div>
-
-    <div x-show="!bootOpen" x-cloak x-transition:enter="transition ease-out duration-1000 delay-[800ms]"
-        x-transition:enter-start="-translate-y-full" x-transition:enter-end="translate-y-0"
-        class="fixed top-0 left-0 right-0 h-7 glass z-[9999] flex items-center justify-between px-4 text-xs font-medium text-gray-200">
-        <div class="flex items-center space-x-4"><span
-                class="font-bold hover:text-white cursor-pointer hidden sm:block">Activities</span><span
-                class="hover:text-white cursor-pointer">Applications</span></div>
-        <div class="absolute left-1/2 -translate-x-1/2 font-mono" x-text="time"></div>
-        <div class="flex items-center space-x-3">
-            <div class="flex items-center space-x-2"><span class="text-green-400">●</span> <span
-                    class="hidden sm:inline">Online</span></div><svg class="w-4 h-4" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z">
-                </path>
-            </svg>
-        </div>
-    </div>
-
-    <div x-show="!bootOpen" x-cloak x-transition:enter="transition ease-out duration-1000 delay-[1000ms]"
-        x-transition:enter-start="opacity-0 -translate-x-10" x-transition:enter-end="opacity-100 translate-x-0"
-        class="absolute top-12 left-4 md:left-6 flex flex-col gap-6 z-10 hidden sm:flex">
-        <template x-for="app in dockApps">
-            <div @click="openWindow(app.id)"
-                class="group flex flex-col items-center cursor-pointer w-20 md:w-24 transition active:scale-95">
-                <div
-                    class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center group-hover:bg-white/10 transition-all shadow-lg">
-                    <svg class="w-6 h-6 md:w-7 md:h-7 text-white/80" :class="app.textColor" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24" x-html="app.icon"></svg>
-                </div>
-                <span
-                    class="text-[10px] md:text-xs mt-2 text-center text-shadow font-medium text-gray-200 group-hover:text-white"
-                    x-text="app.name"></span>
-            </div>
-        </template>
-    </div>
-
-    <div x-show="startMenuOpen" x-cloak x-transition:enter="transition ease-out duration-200 transform"
-        x-transition:enter-start="opacity-0 translate-y-8 scale-95"
-        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-        x-transition:leave="transition ease-in duration-150 transform"
-        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-        x-transition:leave-end="opacity-0 translate-y-8 scale-95" @click.outside="startMenuOpen = false"
-        class="fixed bottom-24 left-1/2 -translate-x-1/2 w-[95%] sm:w-[600px] h-[400px] max-h-[70vh] glass rounded-2xl z-[9990] flex flex-col p-4 md:p-6 will-change-transform">
-        <div class="relative mb-6">
-            <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-            <input type="text" placeholder="Search apps..."
-                class="w-full bg-white/10 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:bg-white/20 transition">
-        </div>
-        <div class="flex-1 grid grid-cols-4 sm:grid-cols-6 gap-2 md:gap-4 content-start overflow-y-auto">
-            <template x-for="app in dockApps">
-                <div @click="openWindow(app.id); startMenuOpen = false"
-                    class="flex flex-col items-center cursor-pointer group hover:bg-white/5 p-2 rounded-xl transition">
-                    <div class="w-10 h-10 rounded-lg flex items-center justify-center shadow-lg border border-white/5 mb-2"
-                        :class="app.color"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" x-html="app.icon"></svg></div>
-                    <span class="text-[10px] text-gray-300 group-hover:text-white text-center" x-text="app.name"></span>
-                </div>
-            </template>
-        </div>
-        <div class="flex justify-between items-center pt-4 border-t border-white/10 mt-2">
-            <div class="flex items-center space-x-3"><img src="pfp.png" alt="Profile"
-                    class="w-8 h-8 rounded-full border border-white/20"><span class="text-sm font-bold">Ritun
-                    Jain</span></div>
-            <button class="p-2 hover:bg-white/10 rounded-lg transition" title="Power Off" aria-label="Restart"
-                @click="location.reload()"><svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg></button>
-        </div>
-    </div>
-
-    <div x-show="!bootOpen && !isAnyMaximized" x-cloak
-        x-transition:enter="transition ease-out duration-1000 delay-[1200ms]"
-        x-transition:enter-start="opacity-0 translate-y-20" x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 translate-y-20"
-        class="fixed bottom-4 left-1/2 -translate-x-1/2 h-16 px-2 md:px-4 glass rounded-2xl flex items-center space-x-1 md:space-x-3 z-[9990] max-w-[95vw] overflow-x-auto">
-
-        <div @click="toggleStartMenu()" aria-label="Start Menu"
-            class="w-10 h-10 shrink-0 rounded-lg hover:bg-white/10 flex items-center justify-center transition cursor-pointer active:scale-90 group"
-            :class="{'bg-white/20': startMenuOpen, 'bg-white/5': !startMenuOpen}">
-            <svg class="w-6 h-6 text-white group-hover:text-blue-400 transition" fill="currentColor"
-                viewBox="0 0 24 24">
-                <path
-                    d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z" />
-            </svg>
-        </div>
-        <div class="w-[1px] h-8 bg-white/10 mx-1 md:mx-2 shrink-0"></div>
-        <template x-for="app in dockApps">
-            <div @click="openWindow(app.id)" :aria-label="app.name"
-                class="relative group cursor-pointer transition hover:-translate-y-2 active:scale-90 shrink-0 mx-1">
-                <div class="w-10 h-10 rounded-lg flex items-center justify-center shadow-lg border border-white/5"
-                    :class="app.color"><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24" x-html="app.icon"></svg></div>
-                <div x-show="windows[app.id].open"
-                    class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-white rounded-full"></div>
-                <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden sm:block"
-                    x-text="app.name"></div>
-            </div>
-        </template>
-    </div>
-
-    <div id="win-about" x-show="windows.about.open" x-cloak @mousedown="focusWindow('about')"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-75 translate-y-10"
-        x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-        x-transition:leave-end="opacity-0 scale-75 translate-y-10"
-        :class="{'is-minimized': windows.about.min, 'is-maximized': windows.about.max}"
-        class="window-node glass rounded-xl overflow-hidden w-[95%] sm:w-[400px] h-[550px] max-h-[85vh] top-10 md:top-[20%] left-[2.5%] md:left-[35%]">
-        <div
-            class="window-header bg-white/5 border-b border-white/5 px-4 py-3 flex justify-between items-center cursor-default select-none touch-none">
-            <div class="flex space-x-2">
-                <div @click.stop="windows.about.open = false"
-                    class="w-3 h-3 bg-red-500 rounded-full cursor-pointer hover:bg-red-600"></div>
-                <div @click.stop="windows.about.min = true"
-                    class="w-3 h-3 bg-yellow-500 rounded-full cursor-pointer hover:bg-yellow-600"></div>
-                <div @click.stop="windows.about.max = !windows.about.max"
-                    class="w-3 h-3 bg-green-500 rounded-full cursor-pointer hover:bg-green-600 hidden sm:block"></div>
-            </div>
-            <span class="text-[10px] font-mono text-slate-400">user_profile.json</span>
-            <div class="w-8"></div>
-        </div>
-        <div class="flex-1 p-6 flex flex-col items-center bg-slate-900/80 text-white overflow-y-auto relative">
-            <div class="absolute top-0 w-full h-32 bg-gradient-to-b from-blue-600/20 to-transparent"></div>
-            <img src="pfp.png" alt="Ritun Jain"
-                class="relative z-10 w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-slate-900 object-cover shadow-2xl mb-3">
-            <h3 class="font-bold text-xl md:text-2xl tracking-wide relative z-10">Ritun Jain</h3>
-            <p class="text-[10px] md:text-xs font-mono text-blue-400 mb-6 uppercase tracking-wider relative z-10">Full
-                Stack Architect</p>
-            <div class="w-full space-y-4 relative z-10">
-                <div class="bg-white/5 rounded-lg p-3 border border-white/5">
-                    <div class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Education</div>
-                    <div class="text-sm font-medium">BE - Computer Eng (AI & ML)</div>
-                    <div class="text-xs text-gray-400 flex justify-between mt-1"><span>NIE Mysuru</span><span>'24 -
-                            '28</span></div>
-                </div>
-                <div class="bg-white/5 rounded-lg p-3 border border-white/5">
-                    <div class="text-[10px] text-gray-400 uppercase tracking-widest mb-2">Skills</div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-[10px]">Python</span>
-                        <span class="px-2 py-1 bg-yellow-500/20 text-yellow-300 rounded text-[10px]">JavaScript</span>
-                        <span class="px-2 py-1 bg-purple-500/20 text-purple-300 rounded text-[10px]">C/C++</span>
-                        <span class="px-2 py-1 bg-green-500/20 text-green-300 rounded text-[10px]">AI/ML</span>
-                        <span class="px-2 py-1 bg-pink-500/20 text-pink-300 rounded text-[10px]">GenAI</span>
-                    </div>
-                </div>
-                <div class="flex flex-col sm:flex-row gap-2">
-                    <div class="flex-1 bg-white/5 rounded-lg p-3 border border-white/5">
-                        <div class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Location</div>
-                        <div class="text-xs flex items-center gap-1"><svg class="w-3 h-3 text-red-400" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                </path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg> Mysuru, IN</div>
-                    </div>
-                    <div class="flex-1 bg-white/5 rounded-lg p-3 border border-white/5">
-                        <div class="text-[10px] text-gray-400 uppercase tracking-widest mb-1">Interests</div>
-                        <div class="text-xs flex items-center gap-1">Artificial Intelligence</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="win-browser" x-show="windows.browser.open" x-cloak @mousedown="focusWindow('browser')"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-75 translate-y-10"
-        x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-        x-transition:leave-end="opacity-0 scale-75 translate-y-10"
-        :class="{'is-minimized': windows.browser.min, 'is-maximized': windows.browser.max}"
-        class="window-node glass rounded-xl overflow-hidden w-[95%] md:w-[900px] h-[80%] md:h-[600px] top-12 md:top-[15%] left-[2.5%] md:left-[20%] flex flex-col">
-
-        <div
-            class="window-header bg-[#18181b] border-b border-white/5 p-3 flex items-center space-x-4 cursor-default select-none touch-none">
-            <div class="flex space-x-2 shrink-0">
-                <div @click.stop="windows.browser.open = false"
-                    class="w-3 h-3 bg-red-500 rounded-full cursor-pointer hover:bg-red-600"></div>
-                <div @click.stop="windows.browser.min = true"
-                    class="w-3 h-3 bg-yellow-500 rounded-full cursor-pointer hover:bg-yellow-600"></div>
-                <div @click.stop="windows.browser.max = !windows.browser.max"
-                    class="w-3 h-3 bg-green-500 rounded-full cursor-pointer hover:bg-green-600 hidden sm:block"></div>
-            </div>
-            <div
-                class="flex-1 bg-[#27272a] rounded-md px-3 py-1.5 text-[10px] md:text-xs text-gray-300 flex items-center font-mono overflow-hidden shadow-inner">
-                <svg @click="browserView = 'hub'; browserUrl = 'https://connect.ritun.dev/socials'"
-                    class="w-4 h-4 mr-2 md:mr-3 shrink-0 text-gray-400 hover:text-white cursor-pointer transition-colors"
-                    fill="none" stroke="currentColor" viewBox="0 0 24 24" title="Return Home">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                    </path>
+<body>
+    <div id="boot-screen" class="boot-screen">
+        <div id="boot-idle" class="boot-idle clickable">
+            <div class="boot-icon-wrapper">
+                <svg class="boot-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
                 </svg>
-                <span x-text="browserUrl" class="truncate"></span>
+            </div>
+            <div class="boot-text-container">
+                <div class="boot-title">Initialize Session</div>
+                <div class="boot-subtitle">[ CLICK TO BOOT ]</div>
             </div>
         </div>
-
-        <div class="flex-1 relative bg-slate-900/90 overflow-hidden">
-
-            <div x-show="browserView === 'hub'" x-transition.opacity
-                class="absolute inset-0 p-4 md:p-10 flex flex-col items-center justify-center text-center overflow-y-auto">
-                <h1
-                    class="text-3xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mt-8 md:mt-0">
-                    Social Hub</h1>
-                <div
-                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl px-2 md:px-4 mt-4 md:mt-8 pb-8">
-                    
-                    <a href="#" @click.prevent="browserView = 'linkedin'; browserUrl = 'linkedin.com/in/ritun-jain-23b683309/'"
-                        class="group flex flex-col items-center justify-center p-6 bg-slate-800/50 rounded-xl border border-white/5 hover:bg-[#0077b5] transition-all duration-300">
-                        <svg class="w-8 h-8 mb-3 text-gray-300 group-hover:text-white group-hover:scale-110 transition-transform"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                        </svg>
-                        <div class="text-white font-bold mb-1">LinkedIn</div>
-                        <div class="text-xs text-slate-400 group-hover:text-white/80">Connect</div>
-                    </a>
-
-                    <a href="#" @click.prevent="browserView = 'github'; browserUrl = 'github.com/KeyboardNoMouse'"
-                        class="group flex flex-col items-center justify-center p-6 bg-slate-800/50 rounded-xl border border-white/5 hover:bg-black transition-all duration-300">
-                        <svg class="w-8 h-8 mb-3 text-gray-300 group-hover:text-white group-hover:scale-110 transition-transform"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
-                        <div class="text-white font-bold mb-1">GitHub</div>
-                        <div class="text-xs text-slate-400 group-hover:text-white/80">Source Code</div>
-                    </a>
-
-                    <a href="#"
-                        @click.prevent="browserView = 'discord'; browserUrl = 'discord.com/users/1110960444165849128'"
-                        class="group flex flex-col items-center justify-center p-6 bg-slate-800/50 rounded-xl border border-white/5 hover:bg-[#5865F2] transition-all duration-300">
-                        <svg class="w-8 h-8 mb-3 text-gray-300 group-hover:text-white group-hover:scale-110 transition-transform"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-                        </svg>
-                        <div class="text-white font-bold mb-1">Discord</div>
-                        <div class="text-xs text-slate-400 group-hover:text-white/80">View Profile</div>
-                    </a>
-
-                    <a href="#" @click.prevent="browserView = 'instagram'; browserUrl = 'instagram.com/_ritun_07/'"
-                        class="group flex flex-col items-center justify-center p-6 bg-slate-800/50 rounded-xl border border-white/5 hover:bg-pink-600 transition-all duration-300">
-                        <svg class="w-8 h-8 mb-3 text-gray-300 group-hover:text-white group-hover:scale-110 transition-transform"
-                            fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                        </svg>
-                        <div class="text-white font-bold mb-1">Instagram</div>
-                        <div class="text-xs text-slate-400 group-hover:text-white/80">@_ritun_07</div>
-                    </a>
+        <div id="boot-loading" class="boot-loading hidden">
+            <div class="boot-loading-content">
+                <div class="boot-loading-header">
+                    <span id="boot-text" class="boot-loading-text">LOADING...</span>
+                    <span id="boot-progress-text" class="boot-progress-text">0%</span>
+                </div>
+                <div class="boot-progress-bar">
+                    <div id="boot-progress" class="boot-progress-fill"></div>
+                </div>
+                <div class="boot-dots">
+                    <div class="boot-dot"></div>
+                    <div class="boot-dot"></div>
+                    <div class="boot-dot"></div>
+                    <div class="boot-dot"></div>
+                    <div class="boot-dot"></div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div x-show="browserView === 'linkedin'" x-cloak x-transition.opacity class="absolute inset-0 bg-[#000000] overflow-y-auto text-slate-300 font-sans p-4 md:p-8">
-                <div class="max-w-[780px] mx-auto">
-                    <div class="bg-[#1d2226] rounded-xl border border-white/10 overflow-hidden relative">
-                        <div class="h-32 md:h-48 bg-gradient-to-r from-[#195679] to-[#0a66c2]"></div>
-                        <div class="px-6 pb-6 relative">
-                            <img src="pfp.png" class="w-28 h-28 md:w-36 md:h-36 rounded-full border-4 border-[#1d2226] absolute -top-14 md:-top-18 left-6 bg-[#1d2226]" alt="Ritun Jain">
-                            <div class="pt-16 md:pt-20">
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <h1 class="text-2xl text-white font-bold">Ritun Jain</h1>
-                                        <p class="text-sm mt-1 text-gray-300">Full Stack Developer | AI & ML Engineering Student @ NIE Mysuru</p>
-                                        <p class="text-xs text-gray-400 mt-2">Mysuru, Karnataka, India · <span class="text-[#70b5f9] font-semibold hover:underline cursor-pointer">Contact info</span></p>
-                                        <p class="text-xs text-[#70b5f9] mt-1 font-semibold">500+ connections</p>
-                                    </div>
-                                    <div class="hidden md:flex flex-col text-sm text-white space-y-2">
-                                        <div class="flex items-center gap-2 hover:text-[#70b5f9] cursor-pointer transition">
-                                            <div class="w-6 h-6 bg-white rounded flex items-center justify-center"><span class="text-black text-[10px] font-bold">NIE</span></div>
-                                            <span class="text-sm font-semibold">The National Institute of Engineering</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex gap-2 mt-4">
-                                    <a href="https://www.linkedin.com/in/ritun-jain-23b683309/" target="_blank" rel="noopener noreferrer" class="bg-[#0a66c2] hover:bg-[#004182] text-white font-bold py-1.5 px-4 rounded-full text-sm transition inline-flex items-center justify-center cursor-pointer">Connect</a>
-                                    <button class="bg-transparent border border-white hover:bg-white/10 text-white font-bold py-1.5 px-4 rounded-full text-sm transition">Message</button>
-                                </div>
-                            </div>
+    <div id="main-app" class="main-app hidden">
+        <div id="bg-grain" class="bg-grain"></div>
+        <div id="bg-gradient" class="bg-gradient"></div>
+
+        <div class="container">
+            <nav id="nav-rail" class="nav-rail">
+                <div class="nav-top">
+                    <div class="nav-header">
+                        <div class="nav-logo">
+                            <div class="nav-logo-dot"></div>
+                        </div>
+                        <div class="nav-title-container">
+                            <h1 class="nav-title">PASSPORT</h1>
+                            <p class="nav-subtitle">Ritun Jain // v2028</p>
                         </div>
                     </div>
-
-                    <div class="bg-[#1d2226] mt-4 rounded-xl border border-white/10 p-6">
-                        <h2 class="text-xl text-white font-bold mb-4">Experience</h2>
-                        
-                        <div class="flex gap-4 mb-6">
-                            <div class="w-12 h-12 shrink-0 bg-gradient-to-br from-indigo-500 to-purple-700 rounded flex items-center justify-center">
-                                <span class="text-white font-bold text-xl">A</span>
-                            </div>
-                            <div>
-                                <h3 class="text-white font-bold">Student Council Member (Media Team)</h3>
-                                <p class="text-sm">ALPHA Innovation and Tinkerers Lab, NIE Mysuru</p>
-                                <p class="text-xs text-gray-400 mt-1">Present</p>
-                                <p class="text-sm mt-2 text-gray-300">Contributing to the media team by managing digital content, capturing events, and promoting innovation lab initiatives.</p>
-                            </div>
-                        </div>
-                        <div class="w-full h-px bg-white/10 mb-6"></div>
-
-                        <div class="flex gap-4 mb-6">
-                            <div class="w-12 h-12 shrink-0 bg-white rounded flex items-center justify-center">
-                                <span class="text-blue-600 font-bold text-xl">C</span>
-                            </div>
-                            <div>
-                                <h3 class="text-white font-bold">Technical Intern</h3>
-                                <p class="text-sm">Comedkares</p>
-                                <p class="text-xs text-gray-400 mt-1">Mar 2026 - Present</p>
-                                <p class="text-sm mt-2 text-gray-300">Working on UI/UX design and hardware integration. Utilizing Figma, Onshape, and Arduino IDE to build comprehensive project prototypes.</p>
-                            </div>
-                        </div>
-                        <div class="w-full h-px bg-white/10 mb-6"></div>
-
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 shrink-0 bg-orange-500 rounded flex items-center justify-center">
-                                <span class="text-white font-bold text-xs text-center leading-tight">YFS</span>
-                            </div>
-                            <div>
-                                <h3 class="text-white font-bold">Student Volunteer</h3>
-                                <p class="text-sm">Youth For Seva</p>
-                                <p class="text-xs text-gray-400 mt-1">2024 - Present</p>
-                                <p class="text-sm mt-2 text-gray-300">Organizing and participating in community outreach programs and social service initiatives.</p>
-                            </div>
-                        </div>
+                    <div class="nav-links">
+                        <button class="nav-link active" data-tab="identity">
+                            <span class="nav-link-line"></span>
+                            <span class="nav-link-text">Identity</span>
+                        </button>
+                        <button class="nav-link" data-tab="projects">
+                            <span class="nav-link-line"></span>
+                            <span class="nav-link-text">Projects</span>
+                        </button>
+                        <button class="nav-link" data-tab="archive">
+                            <span class="nav-link-line"></span>
+                            <span class="nav-link-text">Certs</span>
+                        </button>
+                        <button class="nav-link" data-tab="network">
+                            <span class="nav-link-line"></span>
+                            <span class="nav-link-text">Network</span>
+                        </button>
                     </div>
                 </div>
-            </div>
-
-            <div x-show="browserView === 'instagram'" x-cloak x-transition.opacity class="absolute inset-0 bg-[#000000] overflow-y-auto text-white font-sans">
-                <div class="max-w-[935px] mx-auto py-8 px-4 md:px-5">
-                    <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-24 mb-10 border-b border-white/10 pb-10">
-                        <div class="shrink-0 md:ml-16">
-                            <div class="p-1 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-fuchsia-600">
-                                <img src="pfp.png" class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-black object-cover" alt="_ritun_07">
-                            </div>
-                        </div>
-                        <div class="flex-1 text-center md:text-left">
-                            <div class="flex flex-col md:flex-row items-center gap-4 mb-4">
-                                <h1 class="text-xl font-normal">_ritun_07</h1>
-                                <div class="flex gap-2">
-                                    <a href="https://www.instagram.com/_ritun_07/" target="_blank" rel="noopener noreferrer" class="bg-[#0095f6] hover:bg-[#1877f2] font-semibold py-1.5 px-4 rounded-lg text-sm transition inline-flex items-center cursor-pointer text-white">
-                                        Follow 
-                                        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                                    </a>
-                                    <button class="bg-[#363636] hover:bg-[#262626] font-semibold py-1.5 px-4 rounded-lg text-sm transition">Message</button>
-                                </div>
-                            </div>
-                            <div class="flex justify-center md:justify-start gap-8 mb-4 text-base">
-                                <span><span class="font-bold">12</span> posts</span>
-                                <span><span class="font-bold">482</span> followers</span>
-                                <span><span class="font-bold">390</span> following</span>
-                            </div>
-                            <div class="text-sm">
-                                <p class="font-bold mb-1">Ritun Jain</p>
-                                <p>🎓 BE AI & ML @ NIE Mysuru</p>
-                                <p>💻 Full Stack Architect | Ritun OS</p>
-                                <p>♟️ Chess | Video Editing</p>
-                                <a href="https://ritun.space" target="_blank" rel="noopener noreferrer" class="text-[#e0f1ff] font-semibold mt-1 block hover:underline">ritun.space</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex justify-center gap-12 border-t border-white/10 -mt-[1px] mb-4 text-xs font-semibold tracking-widest text-gray-400">
-                        <div class="border-t border-white text-white pt-4 cursor-pointer flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24zm-4 7h-8v1h8v-1zm0 5h-8v1h8v-1zm0 5h-8v1h8v-1zm-10-10h-6v5h6v-5zm0 7h-6v5h6v-5z"/></svg> POSTS
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-1 md:gap-4">
-                        <div class="aspect-square bg-gray-800 overflow-hidden cursor-pointer group relative">
-                            <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=400&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition gap-4 font-bold">
-                                <span>❤️ 124</span><span>💬 12</span>
-                            </div>
-                        </div>
-                        <div class="aspect-square bg-gray-800 overflow-hidden cursor-pointer group relative">
-                            <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=400&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition gap-4 font-bold">
-                                <span>❤️ 89</span><span>💬 5</span>
-                            </div>
-                        </div>
-                        <div class="aspect-square bg-gray-800 overflow-hidden cursor-pointer group relative">
-                            <img src="https://images.unsplash.com/photo-1528319725582-ddc096101511?q=80&w=400&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition gap-4 font-bold">
-                                <span>❤️ 210</span><span>💬 34</span>
-                            </div>
-                        </div>
+                <div class="nav-footer">
+                    <div class="nav-restricted">
+                        NIE Mysuru<br />BE · AI & ML · 2028
                     </div>
                 </div>
-            </div>
+            </nav>
 
-            <div x-show="browserView === 'discord'" x-cloak x-transition.opacity
-                class="absolute inset-0 bg-[#111214] flex flex-col items-center justify-center p-4">
-                <div
-                    class="w-full max-w-[340px] bg-[#2b2d31] rounded-[16px] overflow-hidden shadow-2xl relative border border-[#1e1f22]">
-                    <div class="h-[120px] bg-[#111214] relative w-full overflow-hidden rounded-t-[16px]">
-                        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=340&h=120&fit=crop"
-                            class="w-full h-full object-cover object-center" alt="Cover">
-                    </div>
-                    <div class="absolute top-[76px] left-[16px]">
-                        <div class="relative rounded-full bg-[#2b2d31] p-[6px]">
-                            <img src="pfp.png" class="w-[80px] h-[80px] rounded-full object-cover border border-[#111214]"
-                                alt="Avatar">
-                            <div
-                                class="absolute bottom-1 right-1 w-[22px] h-[22px] bg-[#23a559] border-4 border-[#2b2d31] rounded-full">
+            <main id="main-content" class="main-content">
+                <section id="identity-view" class="view active">
+                    <div class="identity-hero">
+                        <div class="identity-avatar-container">
+                            <div class="identity-avatar">
+                                <img src="pfp.jpg" alt="Ritun Jain Profile Picture" class="avatar-img" />
+                            </div>
+                            <div class="identity-status">
+                                <div class="status-dot"></div>
+                                <span>Available for Internships</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="pt-[55px] px-[16px] pb-[16px]">
-                        <div class="bg-[#111214] rounded-[8px] p-3 text-left">
-                            <h2 class="text-[20px] font-extrabold text-[#f2f3f5] leading-tight">KeyboardNoMouse</h2>
-                            <p class="text-[14px] text-[#dbdee1] mb-3">kbnomouse • He/Him</p>
-                            <div class="w-full h-[1px] bg-[#313338] mb-3"></div>
-                            <h3 class="text-[11px] font-bold text-[#b5bac1] uppercase tracking-wide mb-1.5">Bio</h3>
-                            <p class="text-[14px] text-[#dbdee1] leading-relaxed mb-3">
-                                Engineer defined by strategy. Calculated risk.<br><br>
-                                Check this out : <a href="https://ritun.space/" target="_blank" rel="noopener noreferrer"
-                                    class="text-[#00a8fc] hover:underline">https://ritun.space/</a>
+
+                        <div class="identity-info">
+                            <h1 class="identity-name">Ritun Jain</h1>
+                            <p class="identity-description">
+                                Full-stack developer & AI/ML engineer in training. Building browser simulations, Discord
+                                bots, and AI integrations — one commit at a time.
                             </p>
-                            <div
-                                class="bg-[#2b2d31] rounded-lg p-2 flex justify-between items-center border border-white/5 cursor-pointer hover:bg-[#313338] transition-colors">
-                                <span class="text-xs text-[#dbdee1] font-semibold pl-1">Game Collection</span>
-                                <div class="flex space-x-1">
-                                    <div
-                                        class="w-5 h-5 rounded bg-[#eb4553] flex items-center justify-center text-[10px] font-bold text-white">
-                                        V</div>
-                                    <div
-                                        class="w-5 h-5 rounded bg-black border border-gray-600 flex items-center justify-center">
-                                        <div class="w-3 h-3 border-2 border-white rounded-full"></div>
-                                    </div>
-                                    <div class="w-5 h-5 rounded bg-slate-700 overflow-hidden"><img
-                                            src="https://ui-avatars.com/api/?name=Anime&background=333&color=fff"
-                                            class="w-full h-full object-cover" alt="Anime"></div>
-                                    <div
-                                        class="w-5 h-5 rounded bg-[#5c2b29] text-[#f2f3f5] text-[9px] font-bold flex items-center justify-center">
-                                        +8</div>
+
+                            <div class="skills-grid">
+                                <div class="skill-card">
+                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                                    </svg>
+                                    <div class="skill-label">Full Stack Dev</div>
+                                    <div class="skill-sub">Django · Tailwind · Alpine</div>
+                                </div>
+                                <div class="skill-card">
+                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path>
+                                    </svg>
+                                    <div class="skill-label">AI Integration</div>
+                                    <div class="skill-sub">Gemini API · Prompt Eng.</div>
+                                </div>
+                                <div class="skill-card">
+                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="16 18 22 12 16 6"></polyline>
+                                        <polyline points="8 6 2 12 8 18"></polyline>
+                                    </svg>
+                                    <div class="skill-label">Systems & Code</div>
+                                    <div class="skill-sub">Python · C · Java</div>
+                                </div>
+                                <div class="skill-card">
+                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon
+                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                        </polygon>
+                                    </svg>
+                                    <div class="skill-label">Creative Media</div>
+                                    <div class="skill-sub">Adobe CC · Motion Design</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div x-show="browserView === 'github'" x-cloak x-transition.opacity
-                class="absolute inset-0 bg-[#050505] overflow-y-auto text-slate-300 font-sans p-4 md:p-8">
-                <div class="max-w-[800px] mx-auto flex flex-col items-center">
-
-                    <div class="flex flex-col items-center mb-6 md:mb-10 mt-4 md:mt-0">
-                        <div
-                            class="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-blue-500/40 p-1 mb-4 shadow-[0_0_20px_rgba(59,130,246,0.15)] relative">
-                            <img src="pfp.png" class="w-full h-full rounded-full object-cover bg-slate-800"
-                                alt="GitHub Avatar">
-                            <div
-                                class="absolute bottom-0 right-0 w-6 h-6 bg-[#050505] rounded-full flex items-center justify-center border border-white/10 text-xs">
-                                😊</div>
+                    <div class="tech-stack">
+                        <div class="tech-label">Technical Arsenal</div>
+                        <div class="tech-list">
+                            <span>Python</span>
+                            <span>JavaScript</span>
+                            <span>HTML5</span>
+                            <span>Java</span>
+                            <span>C</span>
+                            <span>Django</span>
+                            <span>Tailwind CSS</span>
+                            <span>Alpine.js</span>
+                            <span>Git</span>
+                            <span>Gemini API</span>
+                            <span>Discord.py</span>
+                            <span>Web Audio API</span>
                         </div>
-                        <h1 class="text-xl md:text-2xl font-extrabold text-white tracking-tight">Ritun Jain</h1>
-                        <a href="https://github.com/KeyboardNoMouse" target="_blank" rel="noopener noreferrer"
-                            class="text-blue-400 hover:text-blue-300 transition-colors mt-1 font-mono text-sm">@KeyboardNoMouse
-                            · he/him</a>
-                        <p class="text-slate-400 mt-3 text-center max-w-md text-xs md:text-sm leading-relaxed">
-                            🎓 BE AI & ML @ NIE Mysuru | 🛠️ Python, Django, Tailwind | 💻 Building Ritun OS
+                    </div>
+
+                    <div class="edu-section">
+                        <div class="tech-label">Education</div>
+                        <div class="edu-card">
+                            <div class="edu-left">
+                                <div class="edu-degree">BE · Computer Engineering (AI & ML)</div>
+                                <div class="edu-school">The National Institute of Engineering, Mysuru</div>
+                            </div>
+                            <div class="edu-right">
+                                <div class="edu-cgpa">8.10 <span>GPA</span></div>
+                                <div class="edu-year">2024 – 2028</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="projects-view" class="view">
+                    <div class="section-heading">
+                        <div class="section-heading-line">
+                            <div class="heading-line"></div>
+                            <p>Build Log</p>
+                        </div>
+                        <h2>Projects</h2>
+                    </div>
+
+                    <div class="projects-list" id="projects-list"></div>
+
+                    <div class="exp-section">
+                        <div class="section-sub-label">Experience Log</div>
+                        <div class="exp-list" id="exp-list"></div>
+                    </div>
+                </section>
+
+                <section id="archive-view" class="view">
+                    <div class="section-heading">
+                        <div class="section-heading-line">
+                            <div class="heading-line"></div>
+                            <p>Credentials</p>
+                        </div>
+                        <h2>Certifications</h2>
+                    </div>
+                    <div class="certs-grid" id="certs-grid"></div>
+                </section>
+
+                <section id="network-view" class="view">
+                    <div class="section-heading">
+                        <div class="section-heading-line">
+                            <div class="heading-line"></div>
+                            <p>Connect</p>
+                        </div>
+                        <h2>Network</h2>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/ritun-jain-23b683309/" target="_blank" rel="noreferrer"
+                            class="social-link">
+                            <div class="social-link-left">
+                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                    </path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg>
+                                <span class="social-label">LinkedIn</span>
+                            </div>
+                            <div class="social-link-right">
+                                <span class="social-value">Ritun Jain</span>
+                                <div class="social-status-dot"></div>
+                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        <a href="https://github.com/KeyboardNoMouse" target="_blank" rel="noreferrer"
+                            class="social-link">
+                            <div class="social-link-left">
+                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg>
+                                <span class="social-label">GitHub</span>
+                            </div>
+                            <div class="social-link-right">
+                                <span class="social-value">KeyboardNoMouse</span>
+                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        <a href="https://instagram.com/_ritun_07/" target="_blank" rel="noreferrer" class="social-link">
+                            <div class="social-link-left">
+                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                                <span class="social-label">Instagram</span>
+                            </div>
+                            <div class="social-link-right">
+                                <span class="social-value">@_ritun_07</span>
+                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        <a href="mailto:ritunjain246@gmail.com" class="social-link">
+                            <div class="social-link-left">
+                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                    </path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                <span class="social-label">Email</span>
+                            </div>
+                            <div class="social-link-right">
+                                <span class="social-value">ritunjain246@gmail.com</span>
+                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="protocol-section">
+                        <div class="protocol-label">Protocol</div>
+                        <p class="protocol-text">
+                            Open to internship opportunities, open-source collaborations, and interesting projects at
+                            the intersection of web development and AI.
+                            <br /><br />
+                            <span class="protocol-status">Current Status: Seeking Internships &amp;
+                                Collaborations</span>
                         </p>
                     </div>
-
-                    <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 pb-8">
-
-                        <a href="#"
-                            class="bg-white/5 border border-white/10 hover:border-blue-500/40 rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(59,130,246,0.1)] flex flex-col justify-between group cursor-pointer">
-                            <div>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-400 transition-colors"
-                                        fill="currentColor" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.22l1.45-1.087a.25.25 0 01.3 0l1.45 1.087a.25.25 0 00.4-.22v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
-                                        </path>
-                                    </svg>
-                                    <h3
-                                        class="text-base md:text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
-                                        NVMe-Health-Core <span
-                                            class="ml-2 text-[10px] font-normal border border-slate-600 rounded-full px-2 py-0.5 text-slate-400">Public</span>
-                                    </h3>
-                                </div>
-                                <p class="text-xs md:text-sm text-slate-400 leading-relaxed line-clamp-3">An AI-powered
-                                    telemetry analysis engine and full-stack web dashboard for predicting NVMe drive
-                                    failures using Random Forest and SMOTE.</p>
-                            </div>
-                            <div class="flex items-center gap-4 mt-5 text-xs font-medium text-slate-500">
-                                <div class="flex items-center gap-1.5"><span
-                                        class="w-2.5 h-2.5 rounded-full bg-[#3572A5]"></span>Python</div>
-                                <div>Updated 20 hours ago</div>
-                            </div>
-                        </a>
-
-                        <a href="#"
-                            class="bg-white/5 border border-white/10 hover:border-blue-500/40 rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(59,130,246,0.1)] flex flex-col justify-between group cursor-pointer">
-                            <div>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-400 transition-colors"
-                                        fill="currentColor" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.22l1.45-1.087a.25.25 0 01.3 0l1.45 1.087a.25.25 0 00.4-.22v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
-                                        </path>
-                                    </svg>
-                                    <h3
-                                        class="text-base md:text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
-                                        Ritun-OS <span
-                                            class="ml-2 text-[10px] font-normal border border-slate-600 rounded-full px-2 py-0.5 text-slate-400">Public</span>
-                                    </h3>
-                                </div>
-                                <p class="text-xs md:text-sm text-slate-400 leading-relaxed line-clamp-3">The source code
-                                    for ritun.space — a web-based desktop experience and portfolio showcasing my journey
-                                    as a Full Stack Developer and AI/ML student.</p>
-                            </div>
-                            <div class="flex items-center gap-4 mt-5 text-xs font-medium text-slate-500">
-                                <div class="flex items-center gap-1.5"><span
-                                        class="w-2.5 h-2.5 rounded-full bg-[#e34c26]"></span>HTML</div>
-                                <div>Updated 3 days ago</div>
-                            </div>
-                        </a>
-
-                        <a href="#"
-                            class="bg-white/5 border border-white/10 hover:border-blue-500/40 rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(59,130,246,0.1)] flex flex-col justify-between group cursor-pointer">
-                            <div>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-400 transition-colors"
-                                        fill="currentColor" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.22l1.45-1.087a.25.25 0 01.3 0l1.45 1.087a.25.25 0 00.4-.22v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
-                                        </path>
-                                    </svg>
-                                    <h3
-                                        class="text-base md:text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
-                                        AI_lab <span
-                                            class="ml-2 text-[10px] font-normal border border-slate-600 rounded-full px-2 py-0.5 text-slate-400">Public</span>
-                                    </h3>
-                                </div>
-                                <p class="text-xs md:text-sm text-slate-400 leading-relaxed line-clamp-3">AI Lab
-                                    Assignments: Implementing Simple Reflex and Goal-Based agents in Python.</p>
-                            </div>
-                            <div class="flex items-center gap-4 mt-5 text-xs font-medium text-slate-500">
-                                <div class="flex items-center gap-1.5"><span
-                                        class="w-2.5 h-2.5 rounded-full bg-[#3572A5]"></span>Python</div>
-                            </div>
-                        </a>
-
-                        <a href="#"
-                            class="bg-white/5 border border-white/10 hover:border-blue-500/40 rounded-xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(59,130,246,0.1)] flex flex-col justify-between group cursor-pointer">
-                            <div>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-400 transition-colors"
-                                        fill="currentColor" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.22l1.45-1.087a.25.25 0 01.3 0l1.45 1.087a.25.25 0 00.4-.22v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
-                                        </path>
-                                    </svg>
-                                    <h3
-                                        class="text-base md:text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
-                                        Discord-AI-Chatbot <span
-                                            class="ml-2 text-[10px] font-normal border border-slate-600 rounded-full px-2 py-0.5 text-slate-400">Public</span>
-                                    </h3>
-                                </div>
-                                <p class="text-xs md:text-sm text-slate-400 leading-relaxed line-clamp-3">☁️ Sky is a
-                                    context-aware Discord chatbot built with Python and Google's Gemini API.</p>
-                            </div>
-                            <div class="flex items-center gap-4 mt-5 text-xs font-medium text-slate-500">
-                                <div class="flex items-center gap-1.5"><span
-                                        class="w-2.5 h-2.5 rounded-full bg-[#3572A5]"></span>Python</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
+                </section>
+            </main>
         </div>
     </div>
 
-    <div id="win-ai" x-show="windows.ai.open" x-cloak @mousedown="focusWindow('ai')"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-75 translate-y-10"
-        x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-        x-transition:leave-end="opacity-0 scale-75 translate-y-10" :style="`z-index: ${windows.ai.zIndex}`"
-        :class="{'is-minimized': windows.ai.min, 'is-maximized': windows.ai.max}"
-        class="window-node glass rounded-xl overflow-hidden w-[95%] md:w-[500px] h-[75%] md:h-[600px] top-10 md:top-[20%] left-[2.5%] md:left-[30%]">
-        <div
-            class="window-header bg-slate-900 border-b border-white/5 px-4 py-3 flex justify-between items-center cursor-default select-none touch-none">
-            <div class="flex space-x-2">
-                <div @click.stop="windows.ai.open = false"
-                    class="w-3 h-3 bg-red-500 rounded-full cursor-pointer hover:bg-red-600"></div>
-                <div @click.stop="windows.ai.min = true"
-                    class="w-3 h-3 bg-yellow-500 rounded-full cursor-pointer hover:bg-yellow-600"></div>
-                <div @click.stop="windows.ai.max = !windows.ai.max"
-                    class="w-3 h-3 bg-green-500 rounded-full cursor-pointer hover:bg-green-600 hidden sm:block"></div>
-            </div>
-            <span class="text-xs font-bold text-white">RitunBot AI</span>
-            <div class="w-8"></div>
-        </div>
-        <div class="flex-1 bg-slate-900/95 flex flex-col p-4">
-            <div class="flex-1 overflow-auto space-y-4 mb-4 pr-2" id="ai-chat">
-                <template x-for="msg in ai.history">
-                    <div :class="msg.sender === 'user' ? 'text-right' : 'text-left'">
-                        <div :class="msg.sender === 'user' ? 'bg-blue-600 text-white rounded-br-none' : 'bg-slate-700 text-gray-200 rounded-bl-none'"
-                            class="inline-block px-4 py-2 rounded-2xl text-sm max-w-[85%]" x-html="msg.text"></div>
-                    </div>
-                </template>
-                <div x-show="ai.typing" class="text-left">
-                    <div class="inline-block px-4 py-2 bg-slate-700 rounded-2xl text-sm text-gray-400">Typing...</div>
-                </div>
-            </div>
-            <div class="flex gap-2"><input type="text" x-model="ai.input" @keydown.enter="ai.send()"
-                    placeholder="Ask me anything..."
-                    class="flex-1 bg-slate-800 border border-white/10 rounded-full px-4 py-2 text-sm text-white focus:outline-none focus:border-blue-500 transition"><button
-                    @click="ai.send()" aria-label="Send Message"
-                    class="bg-blue-600 text-white rounded-full p-2 hover:bg-blue-500"><svg class="w-5 h-5" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                    </svg></button></div>
-        </div>
-    </div>
-
-    <div id="win-terminal" x-show="windows.terminal.open" x-cloak @mousedown="focusWindow('terminal')"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-75 translate-y-10"
-        x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-        x-transition:leave-end="opacity-0 scale-75 translate-y-10" :style="`z-index: ${windows.terminal.zIndex}`"
-        :class="{'is-minimized': windows.terminal.min, 'is-maximized': windows.terminal.max}"
-        class="window-node bg-slate-900/95 rounded-xl overflow-hidden shadow-2xl border border-slate-700 font-mono text-xs md:text-sm w-[95%] md:w-[600px] h-[60%] md:h-[400px] top-[15%] md:top-[25%] left-[2.5%] md:left-[25%]">
-        <div
-            class="window-header bg-slate-800 px-4 py-2 flex items-center space-x-2 cursor-default select-none touch-none">
-            <div @click.stop="windows.terminal.open = false" class="w-3 h-3 bg-red-500 rounded-full cursor-pointer">
-            </div>
-            <div @click.stop="windows.terminal.min = true" class="w-3 h-3 bg-yellow-500 rounded-full cursor-pointer">
-            </div>
-            <div @click.stop="windows.terminal.max = !windows.terminal.max"
-                class="w-3 h-3 bg-green-500 rounded-full cursor-pointer hidden sm:block"></div>
-            <span class="text-slate-400 text-[10px] md:text-xs ml-4">user@ritun-os:~</span>
-        </div>
-        <div id="term-content" class="p-4 flex-1 overflow-y-auto"
-            @click="document.getElementById('term-input').focus()">
-            <template x-for="line in term.history">
-                <div class="mb-1"><span x-show="line.type === 'input'"
-                        class="text-blue-400 mr-2 font-bold">user@ritun-os:~$</span><span
-                        :class="line.type === 'input' ? 'text-white' : 'text-green-400'" x-html="line.text"></span>
-                </div>
-            </template>
-            <div class="flex items-center"><span
-                    class="text-blue-400 mr-2 font-bold whitespace-nowrap">user@ritun-os:~$</span><input id="term-input"
-                    type="text" x-model="term.input" @keydown.enter="term.handle($data)" autocomplete="off"
-                    class="bg-transparent border-none outline-none text-white w-full p-0 m-0 font-inherit caret-white">
-            </div>
-        </div>
-    </div>
-
-    <div id="win-vscode" x-show="windows.vscode.open" x-cloak @mousedown="focusWindow('vscode')"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-75 translate-y-10"
-        x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-        x-transition:leave-end="opacity-0 scale-75 translate-y-10" :style="`z-index: ${windows.vscode.zIndex}`"
-        :class="{'is-minimized': windows.vscode.min, 'is-maximized': windows.vscode.max}"
-        class="window-node bg-[#1e1e1e] rounded-xl overflow-hidden shadow-2xl border border-black/50 w-[95%] md:w-[900px] h-[80%] md:h-[600px] top-[10%] left-[2.5%] md:left-[10%]">
-        <div
-            class="window-header bg-[#333333] px-4 py-2 flex items-center justify-between cursor-default select-none touch-none">
-            <div class="flex space-x-2">
-                <div @click.stop="windows.vscode.open = false" class="w-3 h-3 bg-red-500 rounded-full cursor-pointer">
-                </div>
-                <div @click.stop="windows.vscode.min = true" class="w-3 h-3 bg-yellow-500 rounded-full cursor-pointer">
-                </div>
-                <div @click.stop="windows.vscode.max = !windows.vscode.max"
-                    class="w-3 h-3 bg-green-500 rounded-full cursor-pointer hidden sm:block"></div>
-            </div>
-            <span class="text-slate-400 text-[10px] md:text-xs"><span x-text="vscodeApp.activeTab"></span> - Visual
-                Studio Code</span>
-            <div class="w-10"></div>
-        </div>
-        <div class="flex flex-1 overflow-hidden">
-            <div class="w-40 md:w-48 bg-[#252526] border-r border-[#333] flex flex-col hidden sm:flex">
-                <div class="px-4 py-2 text-[10px] md:text-xs font-bold text-gray-400 uppercase">Explorer</div>
-                <div class="px-2 py-1 text-blue-400 text-xs md:text-sm flex items-center"><svg class="w-4 h-4 mr-1"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg> RITUN-PROJECTS</div>
-
-                <template x-for="(fileData, fileName) in vscodeApp.files" :key="fileName">
-                    <div @click="vscodeApp.activeTab = fileName"
-                        class="pl-6 py-1 cursor-pointer text-xs md:text-sm flex items-center gap-2"
-                        :class="vscodeApp.activeTab === fileName ? 'bg-[#37373d] text-white' : 'hover:bg-[#37373d] text-gray-300'">
-                        <span x-html="fileData.icon"></span> <span x-text="fileName"></span>
-                    </div>
-                </template>
-            </div>
-
-            <div class="flex-1 bg-[#1e1e1e] flex flex-col font-mono overflow-hidden">
-                <div class="bg-[#1e1e1e] border-b border-[#333] flex overflow-x-auto flex-shrink-0">
-                    <template x-for="(fileData, fileName) in vscodeApp.files" :key="fileName">
-                        <div @click="vscodeApp.activeTab = fileName"
-                            class="px-3 md:px-4 py-2 border-r border-[#333] text-[10px] md:text-xs cursor-pointer whitespace-nowrap"
-                            :class="vscodeApp.activeTab === fileName ? 'bg-[#2d2d2d] border-t-2 border-blue-500 text-white' : 'bg-[#1e1e1e] text-gray-400 hover:bg-[#2d2d2d]'">
-                            <span x-html="fileData.icon" class="mr-1"></span> <span x-text="fileName"></span>
-                        </div>
-                    </template>
-                </div>
-
-                <div
-                    class="flex-1 p-4 md:p-6 text-xs md:text-sm text-gray-300 overflow-auto leading-relaxed whitespace-pre-wrap">
-                    <template x-for="(line, index) in vscodeApp.files[vscodeApp.activeTab].lines">
-                        <div class="flex hover:bg-[#2a2d2e] rounded-sm pr-4">
-                            <span class="text-gray-600 select-none mr-2 md:mr-4 w-4 md:w-6 text-right shrink-0"
-                                x-text="index + 1"></span>
-                            <span x-html="line === ' ' ? '<br>' : line"></span>
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Custom Smooth Cursor Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const rocket = document.getElementById('cursor-rocket');
-            if (!rocket) return;
-
-            let mouseX = window.innerWidth / 2;
-            let mouseY = window.innerHeight / 2;
-            let rocketX = mouseX;
-            let rocketY = mouseY;
-            let isHovering = false;
-            let isClicking = false;
-            let currentScale = 1;
-            let angle = 0;
-
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-
-                const hoverable = e.target.closest('button, a, input, .cursor-pointer, [cursor-pointer]');
-                if (hoverable) {
-                    isHovering = true;
-                } else {
-                    isHovering = false;
-                }
-            });
-
-            document.addEventListener('mousedown', () => isClicking = true);
-            document.addEventListener('mouseup', () => isClicking = false);
-
-            function animateCursor() {
-                let dx = mouseX - rocketX;
-                let dy = mouseY - rocketY;
-
-                rocketX += dx * 0.15;
-                rocketY += dy * 0.15;
-
-                if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
-                    angle = Math.atan2(dy, dx) * (180 / Math.PI) + 45;
-                }
-
-                let targetScale = 1;
-                if (isHovering) targetScale = 1.4;
-                if (isClicking) targetScale = 0.8;
-
-                currentScale += (targetScale - currentScale) * 0.15;
-
-                rocket.style.transform = `translate3d(${rocketX}px, ${rocketY}px, 0) rotate(${angle}deg) scale(${currentScale})`;
-
-                requestAnimationFrame(animateCursor);
-            }
-            if (window.matchMedia("(pointer: fine)").matches) {
-                animateCursor();
-            }
-        });
-
-        // Main OS Logic
-        let audioCtx = null;
-
-        function osData() {
-            return {
-                needsClick: true,
-                bootOpen: true,
-                bootPhase: 0,
-                bootProgress: 0,
-                zIndexCounter: 50,
-
-                decodedText: '',
-                targetText: 'RITUN OS',
-                currentLog: '',
-                sysLogs: [
-                    'INITIALIZING KERNEL...', 'VERIFYING CREDENTIALS...',
-                    'BYPASSING MAINFRAME...', 'ESTABLISHING NEURAL LINK...',
-                    'MOUNTING FILESYSTEM...', 'ACCESS GRANTED.'
-                ],
-
-                startMenuOpen: false, focused: 'none',
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-
-                browserView: 'hub',
-                browserUrl: 'https://connect.ritun.dev/socials',
-
-                dockApps: [
-                    { id: 'about', name: 'Profile', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>', color: 'bg-blue-600', textColor: 'text-blue-300' },
-                    { id: 'browser', name: 'Browser', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>', color: 'bg-purple-600', textColor: 'text-purple-300' },
-                    { id: 'terminal', name: 'Terminal', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 17l6-6-6-6m8 14h8"></path>', color: 'bg-slate-800', textColor: 'text-green-400' },
-                    { id: 'vscode', name: 'Code', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>', color: 'bg-blue-500', textColor: 'text-blue-400' },
-                    { id: 'ai', name: 'RitunBot', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>', color: 'bg-emerald-600', textColor: 'text-white' }
-                ],
-                windows: {
-                    about: { open: false, min: false, max: false },
-                    browser: { open: false, min: false, max: false },
-                    terminal: { open: false, min: false, max: false },
-                    vscode: { open: false, min: false, max: false },
-                    ai: { open: false, min: false, max: false }
-                },
-
-                // Helper to check if any window is maximized (used to hide the dock)
-                get isAnyMaximized() {
-                    return this.windows.about.max || this.windows.browser.max ||
-                        this.windows.terminal.max || this.windows.vscode.max ||
-                        this.windows.ai.max;
-                },
-
-                // Dynamic VS Code App State
-                vscodeApp: {
-                    activeTab: 'README.md',
-                    files: {
-                        'README.md': {
-                            icon: '<span class="text-blue-300">ℹ️</span>',
-                            lines: [
-                                '<span class="token keyword"># Hi, I\'m Ritun Jain 👋</span>',
-                                ' ',
-                                'I\'m a <span class="token keyword">Full Stack Developer</span> and student at <span class="token string">NIE Mysuru</span> (2024-2028).',
-                                'Pursuing a BE in Computer Engineering with a specialization in AI & ML.',
-                                ' ',
-                                '<span class="token keyword">## 💻 Tech Stack</span>',
-                                '- <span class="token function">Languages:</span> Python, Java, C, JavaScript',
-                                '- <span class="token function">Frameworks:</span> Django, Tailwind CSS, React',
-                                '- <span class="token function">Specialization:</span> AI/ML, Prompt Engineering, Predictive Modeling',
-                                ' ',
-                                '<span class="token keyword">## 🚀 Current Focus</span>',
-                                '- Expanding <span class="token string">Ritun OS v3.0</span> (You\'re looking at it!)',
-                                '- Enhancing <span class="token string">Sky</span> (Context-aware Gemini API Discord Bot)',
-                                '- Developing <span class="token string">NVMe-Health-Core</span> (Failure prediction using Random Forest & SMOTE)',
-                                ' ',
-                                '<span class="token comment">// Let\'s connect!</span>',
-                                '<span class="token string">ritunjain246@gmail.com</span>'
-                            ]
-                        },
-                        'nvme_model.py': {
-                            icon: '<span class="text-blue-400">🐍</span>',
-                            lines: [
-                                '<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd',
-                                '<span class="token keyword">from</span> sklearn.ensemble <span class="token keyword">import</span> RandomForestClassifier',
-                                '<span class="token keyword">from</span> imblearn.over_sampling <span class="token keyword">import</span> SMOTE',
-                                ' ',
-                                '<span class="token comment"># Initialize SMOTE for handling imbalanced telemetry data</span>',
-                                'smote = SMOTE(random_state=<span class="token number">42</span>)',
-                                'X_train_res, y_train_res = smote.fit_resample(X_train, y_train)',
-                                ' ',
-                                '<span class="token comment"># Train Random Forest Model for NVMe failure prediction</span>',
-                                'model = RandomForestClassifier(n_estimators=<span class="token number">100</span>)',
-                                'model.fit(X_train_res, y_train_res)',
-                                ' ',
-                                '<span class="token function">print</span>(<span class="token string">"NVMe Health Model Trained Successfully! 🚀"</span>)'
-                            ]
-                        },
-                        'sky_bot.py': {
-                            icon: '<span class="text-blue-400">🐍</span>',
-                            lines: [
-                                '<span class="token keyword">import</span> discord',
-                                '<span class="token keyword">import</span> google.generativeai <span class="token keyword">as</span> genai',
-                                ' ',
-                                '<span class="token comment"># Initialize Sky - Context-Aware Gemini Bot</span>',
-                                'genai.configure(api_key=GEMINI_API_KEY)',
-                                'model = genai.GenerativeModel(<span class="token string">\'gemini-3.1-flash\'</span>)',
-                                ' ',
-                                '<span class="token keyword">@client.event</span>',
-                                '<span class="token keyword">async def</span> <span class="token function">on_message</span>(message):',
-                                '    <span class="token keyword">if</span> message.author == client.user:',
-                                '        <span class="token keyword">return</span>',
-                                ' ',
-                                '    response = model.generate_content(message.content)',
-                                '    <span class="token keyword">await</span> message.channel.send(response.text)'
-                            ]
-                        },
-                        'event_mngr.c': {
-                            icon: '<span class="text-yellow-400">#</span>',
-                            lines: [
-                                '<span class="token keyword">#include</span> <span class="token string">&lt;stdio.h&gt;</span>',
-                                '<span class="token keyword">#include</span> <span class="token string">&lt;stdlib.h&gt;</span>',
-                                ' ',
-                                '<span class="token keyword">struct</span> Event {',
-                                '    <span class="token keyword">char</span> name[<span class="token number">50</span>];',
-                                '    <span class="token keyword">char</span> date[<span class="token number">20</span>];',
-                                '    <span class="token keyword">int</span> attendees;',
-                                '};',
-                                ' ',
-                                '<span class="token keyword">int</span> <span class="token function">main</span>() {',
-                                '    <span class="token function">printf</span>(<span class="token string">"Initializing Event Management System...\\n"</span>);',
-                                '    <span class="token comment">// Memory allocation and queue logic goes here...</span>',
-                                '    <span class="token keyword">return</span> <span class="token number">0</span>;',
-                                '}'
-                            ]
-                        }
-                    }
-                },
-
-                initOS() {
-                    setInterval(() => { this.time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }, 1000);
-                    this.enableDragging();
-                },
-
-                startSystem() {
-                    this.needsClick = false;
-                    setTimeout(() => { this.playBootSound(); }, 200);
-                    setTimeout(() => {
-                        this.bootPhase = 1;
-                        this.startTextDecode();
-                        this.startProgressTracker();
-                    }, 500);
-                },
-
-                playBootSound() {
-                    try {
-                        if (!window.AudioContext && !window.webkitAudioContext) return;
-                        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                        if (audioCtx.state === 'suspended') audioCtx.resume();
-
-                        const t = audioCtx.currentTime;
-                        const masterGain = audioCtx.createGain();
-                        masterGain.connect(audioCtx.destination);
-                        masterGain.gain.value = 0.3;
-
-                        const drone = audioCtx.createOscillator();
-                        const droneGain = audioCtx.createGain();
-                        drone.type = 'sine';
-                        drone.frequency.setValueAtTime(65.41, t);
-
-                        droneGain.gain.setValueAtTime(0, t);
-                        droneGain.gain.linearRampToValueAtTime(0.4, t + 2);
-                        droneGain.gain.linearRampToValueAtTime(0, t + 5);
-
-                        drone.connect(droneGain);
-                        droneGain.connect(masterGain);
-                        drone.start(t);
-                        drone.stop(t + 5);
-
-                        const playChime = (freq, delay, vol) => {
-                            const osc = audioCtx.createOscillator();
-                            const gain = audioCtx.createGain();
-                            osc.type = 'sine';
-                            osc.frequency.setValueAtTime(freq, t + delay);
-                            gain.gain.setValueAtTime(0, t + delay);
-                            gain.gain.linearRampToValueAtTime(vol, t + delay + 0.1);
-                            gain.gain.exponentialRampToValueAtTime(0.001, t + delay + 3);
-                            osc.connect(gain);
-                            gain.connect(masterGain);
-                            osc.start(t + delay);
-                            osc.stop(t + delay + 3);
-                        };
-
-                        playChime(523.25, 0.5, 0.2);
-                        playChime(783.99, 0.6, 0.15);
-                        playChime(987.77, 0.7, 0.1);
-                        playChime(1174.66, 0.8, 0.05);
-                    } catch (e) { console.error("Audio error:", e); }
-                },
-
-                startTextDecode() {
-                    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>';
-                    let iterations = 0;
-                    const decodeInterval = setInterval(() => {
-                        this.decodedText = this.targetText.split('').map((char, index) => {
-                            if (char === ' ') return ' ';
-                            if (index < iterations) return char;
-                            return chars[Math.floor(Math.random() * chars.length)];
-                        }).join('');
-
-                        if (iterations >= this.targetText.length) {
-                            clearInterval(decodeInterval);
-                            this.bootPhase = 2;
-                        }
-                        iterations += 0.3;
-                    }, 40);
-                },
-
-                startProgressTracker() {
-                    let logIndex = 0;
-                    const progInterval = setInterval(() => {
-                        this.bootProgress += Math.random() * 4;
-                        if (Math.random() > 0.6 && logIndex < this.sysLogs.length) {
-                            this.currentLog = this.sysLogs[logIndex];
-                            logIndex++;
-                        }
-                        if (this.bootProgress >= 100) {
-                            this.bootProgress = 100;
-                            clearInterval(progInterval);
-                            this.currentLog = 'SYSTEM ONLINE';
-                            this.bootPhase = 3;
-                            setTimeout(() => { this.bootOpen = false; }, 800);
-                        }
-                    }, 80);
-                },
-
-                toggleStartMenu() {
-                    this.playClick();
-                    this.startMenuOpen = !this.startMenuOpen;
-                },
-
-                playClick() {
-                    try {
-                        if (!window.AudioContext && !window.webkitAudioContext) return;
-                        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                        if (audioCtx.state === 'suspended') audioCtx.resume();
-                        const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
-                        osc.connect(gain); gain.connect(audioCtx.destination);
-                        osc.type = 'sine'; osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-                        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-                        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-                        osc.start(); osc.stop(audioCtx.currentTime + 0.1);
-                    } catch (e) { }
-                },
-
-                ai: {
-                    input: '',
-                    typing: false,
-                    history: [{ sender: 'bot', text: 'System initialized. I am RitunBot v2.0. Ask me anything about Ritun.' }],
-                    getReply(q) {
-                        if (q.match(/\b(hi|hello|hey|greetings|wassup)\b/)) return "Hello! I am online and ready. What would you like to know about Ritun?";
-                        if (q.match(/\b(who are you|what are you)\b/)) return "I am an AI construct built by Ritun Jain to assist visitors on this OS environment.";
-                        if (q.match(/\b(skill|stack|tech|code|languages)\b/)) return "Ritun's core stack includes Python, Java, C, JavaScript, React, and Tailwind. He is also heavily focused on AI/ML and Gemini API integration.";
-                        if (q.match(/\b(education|college|school|study|nie)\b/)) return "Ritun is currently pursuing a BE in Computer Engineering (AI & ML) at NIE Mysuru (2024–2028).";
-                        if (q.match(/\b(project|portfolio|built|made)\b/)) return "Some of his featured projects include this very OS (Ritun OS v3.0), 'Sky' (a Gemini-powered Discord Bot), and an Event Management System in C.";
-                        if (q.match(/\b(hobby|hobbies|free time)\b/)) return "When he's not coding, you can usually find Ritun editing gaming videos or playing a tactical game of chess.";
-                        if (q.match(/\b(contact|hire|email|reach)\b/)) return "You can easily reach him at ritunjain246@gmail.com, or open the Social Hub app to view his GitHub and Discord (kbnomouse)!";
-                        if (q.match(/\b(kannada|hindi|languages spoken)\b/)) return "Namaskara! Namaste! Ritun speaks English, Kannada, and Hindi.";
-                        const fallbacks = [
-                            "That's an interesting query. However, my neural pathways are specifically tuned for data regarding Ritun.",
-                            "I am currently processing limited datasets. Try asking about his skills, projects, or education.",
-                            "Error 404: Knowledge not found in my current weights. But I can tell you Ritun is an awesome developer!",
-                            "Hmm, I don't have the answer to that. Ask me about his tech stack or college!"
-                        ];
-                        return fallbacks[Math.floor(Math.random() * fallbacks.length)];
-                    },
-                    send() {
-                        if (!this.input.trim()) return;
-                        this.history.push({ sender: 'user', text: this.input });
-                        const q = this.input.toLowerCase();
-                        this.input = '';
-                        this.typing = true;
-
-                        setTimeout(() => {
-                            const chatBox = document.getElementById('ai-chat');
-                            if (chatBox) chatBox.scrollTop = chatBox.scrollHeight;
-                        }, 50);
-
-                        setTimeout(() => {
-                            const reply = this.getReply(q);
-                            this.typing = false;
-                            this.history.push({ sender: 'bot', text: '' });
-                            let charIndex = 0;
-                            const typeInterval = setInterval(() => {
-                                if (charIndex < reply.length) {
-                                    this.history[this.history.length - 1].text += reply.charAt(charIndex);
-                                    charIndex++;
-                                    const chatBox = document.getElementById('ai-chat');
-                                    if (chatBox) chatBox.scrollTop = chatBox.scrollHeight;
-                                } else {
-                                    clearInterval(typeInterval);
-                                }
-                            }, 25);
-                        }, 600 + Math.random() * 400);
-                    }
-                },
-
-                term: {
-                    input: '',
-                    history: [{ type: 'output', text: 'Ritun OS Kernel v3.0 loaded...' }, { type: 'output', text: 'Type "help" for commands.' }],
-                    fs: {
-                        'resume.txt': 'Ritun Jain<br>Full Stack Developer | AI/ML Enthusiast<br>NIE Mysuru (2024-2028) - BE<br>Skills: Python, Java, Django, Tailwind CSS',
-                        'projects.txt': '1. Ritun OS<br>2. Sky Discord Bot (Gemini API)<br>3. Event Management System (C)',
-                        'contact.txt': 'Email: ritunjain246@gmail.com<br>Discord: kbnomouse'
-                    },
-                    handle(os) {
-                        const args = this.input.trim().split(/\s+/);
-                        const cmd = args[0].toLowerCase();
-
-                        if (cmd) this.history.push({ type: 'input', text: this.input });
-
-                        if (cmd === 'help') this.output('Commands: about, socials, code, ai, clear, date, whoami, ls, cat, wallpaper');
-                        else if (cmd === 'clear') this.history = [];
-                        else if (cmd === 'ai') os.openWindow('ai');
-                        else if (cmd === 'about') os.openWindow('about');
-                        else if (cmd === 'socials') os.openWindow('browser');
-                        else if (cmd === 'code') os.openWindow('vscode');
-                        else if (cmd === 'whoami') this.output('root (Ritun Jain)');
-                        else if (cmd === 'date') this.output(new Date().toString());
-                        else if (cmd === 'ls') this.output(Object.keys(this.fs).join(' &nbsp;&nbsp;&nbsp; '));
-                        else if (cmd === 'cat') {
-                            if (args[1] && this.fs[args[1]]) this.output(this.fs[args[1]]);
-                            else this.output(`cat: ${args[1] || ''}: No such file or directory`);
-                        }
-                        else if (cmd === 'sudo') this.output('Nice try! This incident will be reported.');
-                        else if (cmd === 'wallpaper') {
-                            if (args[1]) {
-                                document.getElementById('desktop-bg').style.backgroundImage = `url(${args[1]})`;
-                                this.output('Wallpaper updated successfully.');
-                            } else {
-                                this.output('Usage: wallpaper &lt;image_url&gt;');
-                            }
-                        }
-                        else if (cmd !== '') this.output(`Command not found: ${cmd}`);
-
-                        this.input = '';
-                        setTimeout(() => {
-                            let el = document.getElementById('term-content');
-                            if (el) el.scrollTop = el.scrollHeight;
-                        }, 10);
-                    },
-                    output(t) { this.history.push({ type: 'output', text: t }); }
-                },
-
-                openWindow(key) {
-                    this.playClick();
-                    this.windows[key].open = true;
-                    this.windows[key].min = false;
-                    this.focusWindow(key);
-                },
-
-                focusWindow(key) {
-                    this.focused = key;
-                    this.zIndexCounter++;
-                    const win = document.getElementById(`win-${key}`);
-                    if (win) {
-                        win.style.zIndex = this.zIndexCounter;
-                    }
-                },
-
-                enableDragging() {
-                    let isDragging = false, currentWindow = null, offsetX = 0, offsetY = 0;
-
-                    const startDrag = (e) => {
-                        const header = e.target.closest('.window-header');
-                        if (header && !e.target.closest('.rounded-full')) {
-                            const win = header.closest('.window-node');
-                            if (win && !win.classList.contains('is-maximized')) {
-                                isDragging = true;
-                                currentWindow = win;
-
-                                currentWindow.classList.add('is-dragging');
-
-                                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-                                offsetX = clientX - currentWindow.offsetLeft;
-                                offsetY = clientY - currentWindow.offsetTop;
-
-                                this.focusWindow(win.id.replace('win-', ''));
-                            }
-                        }
-                    };
-
-                    const onDrag = (e) => {
-                        if (!isDragging || !currentWindow) return;
-
-                        e.preventDefault();
-
-                        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-                        let newX = clientX - offsetX;
-                        let newY = clientY - offsetY;
-
-                        newY = Math.max(0, Math.min(newY, window.innerHeight - 30));
-                        newX = Math.max(-currentWindow.offsetWidth + 40, Math.min(newX, window.innerWidth - 40));
-
-                        currentWindow.style.left = `${newX}px`;
-                        currentWindow.style.top = `${newY}px`;
-                    };
-
-                    const stopDrag = () => {
-                        if (isDragging && currentWindow) {
-                            currentWindow.classList.remove('is-dragging');
-                        }
-                        isDragging = false;
-                        currentWindow = null;
-                    };
-
-                    document.addEventListener('mousedown', startDrag);
-                    document.addEventListener('mousemove', onDrag, { passive: false });
-                    document.addEventListener('mouseup', stopDrag);
-
-                    document.addEventListener('touchstart', startDrag, { passive: false });
-                    document.addEventListener('touchmove', onDrag, { passive: false });
-                    document.addEventListener('touchend', stopDrag);
-                }
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>

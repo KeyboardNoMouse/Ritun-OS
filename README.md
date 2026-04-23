@@ -34,11 +34,6 @@ portfolio/
 - Edit `script.js` to add projects, experience, and certifications  
 - Edit `styles.css` to change the design  
 
-## 🔗 Links
-
-- LinkedIn: https://www.linkedin.com  
-- GitHub: https://github.com  
-
 ## 📄 License
 
 Free to use for personal projects.

@@ -1,30 +1,139 @@
-readme_content = """# 🛂 PASSPORT | Ritun Jain
+🚀 PASSPORT — Personal Portfolio
 
-Welcome to the source code of my personal portfolio website, **PASSPORT**. Designed with a minimalist, terminal-inspired aesthetic, it serves as an interactive hub for my projects, experiences, and identity as a Full-Stack Developer and AI/ML Engineer.
+A futuristic, terminal-inspired personal portfolio website built to showcase my identity, projects, experience, and network.
 
-🌐 **Live Site:** https://ritun.space/
+“Building the web, one line at a time.”
 
-## ✨ Features
-- **Interactive Boot Sequence:** A simulated OS kernel boot screen that leads into the main application.
-- **Single Page Application (SPA) Feel:** Smooth, JavaScript-driven tab navigation without page reloads.
-- **Dynamic Content Injection:** Projects, certifications, and experiences are populated dynamically from structured JS arrays, making updates effortless.
-- **Hardware-Accelerated Animations:** GPU-optimized background gradients, grain overlays, and hover effects for a buttery-smooth experience.
-- **Fully Responsive:** Optimized for both desktop and mobile viewing.
+🧠 Overview
 
-## 🛠️ Tech Stack
-- **HTML5** (Semantic structuring)
-- **CSS3** (Custom variables, CSS animations, modern flexbox/grid layouts)
-- **Vanilla JavaScript** (DOM manipulation, optimized data-rendering loops)
+PASSPORT is a modern, interactive portfolio designed with a boot-sequence UI and a system-interface aesthetic.
+It reflects my journey as a Full Stack Developer & AI/ML Engineer in training.
 
-## 🚀 Getting Started
+The site is structured like a digital identity system with sections such as:
 
-To run this project locally, simply clone the repository and open the `index.html` file in your browser. No build steps or package managers required.
+Identity
+Projects
+Certifications
+Network
+✨ Features
+⚡ Boot Animation System
+Interactive startup sequence before entering the main app
+🧭 Tab-based Navigation (SPA Style)
+Smooth switching between sections without page reload
+🧑‍💻 Dynamic Content Rendering
+Projects, experience, and certifications are injected via JavaScript
+🎨 Modern UI/UX
+Dark futuristic theme
+Subtle animations & hover effects
+Glassmorphism + gradient background
+📱 Fully Responsive Design
+🛠️ Tech Stack
+Frontend
+HTML5
+CSS3 (Custom properties + animations)
+Vanilla JavaScript
+Fonts & Assets
+Google Fonts: Syne, Space Mono
+Concepts Used
+DOM Manipulation
+Event-driven UI
+Component-style rendering (via JS arrays)
+CSS animations & transitions
+📁 Project Structure
+📦 passport-portfolio
+ ┣ 📜 index.html      # Main structure
+ ┣ 📜 styles.css      # Styling & animations
+ ┣ 📜 script.js       # Logic & dynamic rendering
+ ┣ 🖼️ pfp.jpg         # Profile image
+ ┗ 📄 README.md
+⚙️ How It Works
+🔹 Boot Sequence
+Triggered on click
+Simulates system loading with:
+Progress bar
+Dynamic messages
+Transitions into main UI
+🔹 Dynamic Sections
 
-```bash
-# Clone the repository
-git clone [https://github.com/KeyboardNoMouse/portfolio-website.git](https://github.com/KeyboardNoMouse/portfolio-website.git)
+Data is stored in arrays inside script.js:
 
-# Navigate to the directory
-cd portfolio-website
+PROJECTS
+EXPERIENCES
+CERTS
 
-# Open index.html in your default browser
+Rendered using:
+
+innerHTML + map()
+📌 Sections Breakdown
+🧬 Identity
+Profile
+Skills
+Tech stack
+Education
+🛠️ Projects
+AI + Web projects
+Tags & descriptions
+Status indicators
+📜 Certifications
+Course-based achievements
+🌐 Network
+LinkedIn
+GitHub
+Instagram
+Email
+🚀 Getting Started
+1. Clone the repository
+git clone https://github.com/your-username/passport-portfolio.git
+2. Open in browser
+cd passport-portfolio
+open index.html
+
+No build tools required — pure frontend.
+
+🎯 Customization Guide
+Update Personal Info
+
+Edit inside index.html:
+
+Name
+Description
+Links
+Add Projects
+
+Modify in script.js:
+
+const PROJECTS = [
+  {
+    title: "",
+    subtitle: "",
+    date: "",
+    status: "",
+    desc: "",
+    tags: []
+  }
+];
+Change Theme
+
+Modify CSS variables in styles.css:
+
+:root {
+  --bg-color: #040407;
+  --accent-color: #3b82f6;
+}
+🧩 Future Improvements
+🔗 Add project links & live demos
+🧠 Integrate real AI assistant
+📊 Add analytics dashboard
+🌙 Theme switcher
+📝 Blog/Logs section
+🤝 Connect With Me
+LinkedIn: https://www.linkedin.com/in/ritun-jain-23b683309/
+GitHub: https://github.com/KeyboardNoMouse
+Email: ritunjain246@gmail.com
+📄 License
+
+This project is open-source and free to use for personal portfolio inspiration.
+
+⚡ Final Note
+
+This isn’t just a portfolio — it’s a system interface representing identity, work, and evolution.

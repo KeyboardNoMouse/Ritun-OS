@@ -24,19 +24,19 @@ const EXPERIENCES = [
     {
         role: "Student Council Member (Media Team)",
         org: "ALPHA Innovation and Tinkerers' Lab, NIE Mysuru",
-        period: "Apr 2026 – Present",
+        period: "Feb 2026 – Present",
         skills: "Learning text and keyframe animations using After Effects and Premiere Pro. Representing the lab at external company project expos and industry showcases.",
     },
     {
         role: "Technical Intern",
         org: "Comedkares",
-        period: "Mar 2026 – Present",
+        period: "Oct 2025 – Jan 2026",
         skills: "Working with industry-standard tools including OnShape for 3D modelling and Figma for UI/UX prototyping.",
     },
     {
         role: "Student Volunteer",
         org: "Youth For Seva",
-        period: "2024 – Present",
+        period: "Nov 2025 – Present",
         skills: "Actively participating in community impact events such as city cleaning drives and teaching school students in underserved areas.",
     },
 ];

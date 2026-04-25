@@ -30,8 +30,8 @@ const EXPERIENCES = [
     {
         role: "Technical Intern",
         org: "Comedkares",
-        period: "Oct 2025 – Jan 2026",
-        skills: "Working with industry-standard tools including OnShape for 3D modelling and Figma for UI/UX prototyping.",
+        period: "Oct 2024 – Jan 2025",
+        skills: "Worked with industry-standard tools including OnShape for 3D modelling and Figma for UI/UX prototyping.",
     },
     {
         role: "Student Volunteer",

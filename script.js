@@ -1,7 +1,7 @@
 /* --- DATA --- */
 const PROJECTS = [
     {
-        title: "NVMe-Health-Core",
+        title: "NVMe-Drive-Analyzer",
         subtitle: "Predictive Maintenance System",
         date: "Mar 2026",
         status: "PUBLIC",
@@ -28,7 +28,7 @@ const EXPERIENCES = [
         skills: "Learning text and keyframe animations using After Effects and Premiere Pro. Representing the lab at external company project expos and industry showcases.",
     },
     {
-        role: "Technical Intern",
+        role: "Internship Trainee",
         org: "Comedkares",
         period: "Oct 2024 – Jan 2025",
         skills: "Worked with industry-standard tools including OnShape for 3D modelling and Figma for UI/UX prototyping.",

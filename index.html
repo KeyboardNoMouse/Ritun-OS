@@ -1,26 +1,32 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-        content="Ritun Jain — Full Stack Developer & AI/ML Engineer. Building the web, one line at a time." />
+    <meta name="description" content="Ritun Jain — Full Stack Developer & AI/ML Engineer. Building the web, one line at a time." />
     <title>PASSPORT | Ritun Jain</title>
     <link rel="icon" href="https://img.icons8.com/ios-filled/50/ffffff/code.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- CRT Scanline -->
+    <div id="crt"></div>
+
+    <!-- BOOT SCREEN -->
     <div id="boot-screen" class="boot-screen">
-        <div id="boot-idle" class="boot-idle clickable">
+        <div class="boot-stars" id="boot-stars"></div>
+
+        <div id="boot-idle" class="boot-idle">
             <div class="boot-icon-wrapper">
-                <svg class="boot-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                <svg class="boot-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="16 18 22 12 16 6"></polyline>
                     <polyline points="8 6 2 12 8 18"></polyline>
@@ -31,15 +37,17 @@
                 <div class="boot-subtitle">[ CLICK TO BOOT ]</div>
             </div>
         </div>
+
         <div id="boot-loading" class="boot-loading hidden">
             <div class="boot-loading-content">
                 <div class="boot-loading-header">
-                    <span id="boot-text" class="boot-loading-text">LOADING...</span>
+                    <span id="boot-text" class="boot-loading-text">INITIALIZING...</span>
                     <span id="boot-progress-text" class="boot-progress-text">0%</span>
                 </div>
                 <div class="boot-progress-bar">
                     <div id="boot-progress" class="boot-progress-fill"></div>
                 </div>
+                <div class="boot-log" id="boot-log"></div>
                 <div class="boot-dots">
                     <div class="boot-dot"></div>
                     <div class="boot-dot"></div>
@@ -51,11 +59,14 @@
         </div>
     </div>
 
+    <!-- MAIN APP -->
     <div id="main-app" class="main-app hidden">
-        <div id="bg-grain" class="bg-grain"></div>
-        <div id="bg-gradient" class="bg-gradient"></div>
+        <div class="bg-noise"></div>
+        <div class="bg-gradient"></div>
+        <div class="bg-grid"></div>
 
         <div class="container">
+            <!-- NAV RAIL -->
             <nav id="nav-rail" class="nav-rail">
                 <div class="nav-top">
                     <div class="nav-header">
@@ -69,55 +80,68 @@
                     </div>
                     <div class="nav-links">
                         <button class="nav-link active" data-tab="identity">
+                            <span class="nav-index">01</span>
                             <span class="nav-link-line"></span>
                             <span class="nav-link-text">Identity</span>
                         </button>
                         <button class="nav-link" data-tab="projects">
+                            <span class="nav-index">02</span>
                             <span class="nav-link-line"></span>
                             <span class="nav-link-text">Projects</span>
                         </button>
                         <button class="nav-link" data-tab="archive">
+                            <span class="nav-index">03</span>
                             <span class="nav-link-line"></span>
                             <span class="nav-link-text">Certs</span>
                         </button>
+                        <button class="nav-link" data-tab="experience">
+                            <span class="nav-index">04</span>
+                            <span class="nav-link-line"></span>
+                            <span class="nav-link-text">Experience</span>
+                        </button>
                         <button class="nav-link" data-tab="network">
+                            <span class="nav-index">05</span>
                             <span class="nav-link-line"></span>
                             <span class="nav-link-text">Network</span>
                         </button>
                     </div>
                 </div>
                 <div class="nav-footer">
+                    <div class="nav-footer-divider"></div>
                     <div class="nav-restricted">
-                        NIE Mysuru<br />BE · AI & ML · 2028
+                        NIE Mysuru<br />BE · AI &amp; ML · 2028
+                    </div>
+                    <div class="nav-build-info">
+                        BUILD <span>2026.04</span> · STABLE
                     </div>
                 </div>
             </nav>
 
+            <!-- MAIN CONTENT -->
             <main id="main-content" class="main-content">
+
+                <!-- IDENTITY -->
                 <section id="identity-view" class="view active">
                     <div class="identity-hero">
                         <div class="identity-avatar-container">
                             <div class="identity-avatar">
-                                <img src="pfp.jpg" alt="Ritun Jain Profile Picture" class="avatar-img" />
+                                <img src="pfp.jpg" alt="Ritun Jain" class="avatar-img" />
+                                <div class="avatar-scan"></div>
                             </div>
                             <div class="identity-status">
                                 <div class="status-dot"></div>
                                 <span>Available for Internships</span>
                             </div>
                         </div>
-
                         <div class="identity-info">
-                            <h1 class="identity-name">Ritun Jain</h1>
+                            <h1 class="identity-name" data-text="Ritun Jain">Ritun Jain</h1>
                             <p class="identity-description">
-                                Full-stack developer & AI/ML engineer in training. Building browser simulations, Discord
-                                bots, and AI integrations — one commit at a time.
+                                Full-stack developer &amp; AI/ML engineer in training. Building browser simulations,
+                                Discord bots, and AI integrations — one commit at a time.
                             </p>
-
                             <div class="skills-grid">
                                 <div class="skill-card">
-                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"
-                                        stroke-linecap="round" stroke-linejoin="round">
+                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                         <line x1="3" y1="9" x2="21" y2="9"></line>
                                         <line x1="9" y1="21" x2="9" y2="9"></line>
@@ -126,9 +150,7 @@
                                     <div class="skill-sub">Django · Tailwind · Alpine</div>
                                 </div>
                                 <div class="skill-card">
-                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"
-                                        stroke-linecap="round" stroke-linejoin="round">
+                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                                         <circle cx="12" cy="12" r="3"></circle>
                                         <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path>
                                     </svg>
@@ -136,22 +158,16 @@
                                     <div class="skill-sub">Gemini API · Prompt Eng.</div>
                                 </div>
                                 <div class="skill-card">
-                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"
-                                        stroke-linecap="round" stroke-linejoin="round">
+                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="16 18 22 12 16 6"></polyline>
                                         <polyline points="8 6 2 12 8 18"></polyline>
                                     </svg>
-                                    <div class="skill-label">Systems & Code</div>
+                                    <div class="skill-label">Systems &amp; Code</div>
                                     <div class="skill-sub">Python · C · Java</div>
                                 </div>
                                 <div class="skill-card">
-                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <polygon
-                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                                        </polygon>
+                                    <svg class="skill-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                                     </svg>
                                     <div class="skill-label">Creative Media</div>
                                     <div class="skill-sub">Adobe CC · Motion Design</div>
@@ -163,18 +179,10 @@
                     <div class="tech-stack">
                         <div class="tech-label">Technical Arsenal</div>
                         <div class="tech-list">
-                            <span>Python</span>
-                            <span>JavaScript</span>
-                            <span>HTML5</span>
-                            <span>Java</span>
-                            <span>C</span>
-                            <span>Django</span>
-                            <span>Tailwind CSS</span>
-                            <span>Alpine.js</span>
-                            <span>Git</span>
-                            <span>Gemini API</span>
-                            <span>Discord.py</span>
-                            <span>Web Audio API</span>
+                            <span>Python</span><span>JavaScript</span><span>HTML5</span>
+                            <span>Java</span><span>C</span><span>Django</span>
+                            <span>Tailwind CSS</span><span>Alpine.js</span><span>Git</span>
+                            <span>Gemini API</span><span>Discord.py</span><span>Web Audio API</span>
                         </div>
                     </div>
 
@@ -182,7 +190,7 @@
                         <div class="tech-label">Education</div>
                         <div class="edu-card">
                             <div class="edu-left">
-                                <div class="edu-degree">BE · Computer Engineering (AI & ML)</div>
+                                <div class="edu-degree">BE · Computer Engineering (AI &amp; ML)</div>
                                 <div class="edu-school">The National Institute of Engineering, Mysuru</div>
                             </div>
                             <div class="edu-right">
@@ -193,6 +201,7 @@
                     </div>
                 </section>
 
+                <!-- PROJECTS -->
                 <section id="projects-view" class="view">
                     <div class="section-heading">
                         <div class="section-heading-line">
@@ -201,15 +210,10 @@
                         </div>
                         <h2>Projects</h2>
                     </div>
-
                     <div class="projects-list" id="projects-list"></div>
-
-                    <div class="exp-section">
-                        <div class="section-sub-label">Experience Log</div>
-                        <div class="exp-list" id="exp-list"></div>
-                    </div>
                 </section>
 
+                <!-- CERTS -->
                 <section id="archive-view" class="view">
                     <div class="section-heading">
                         <div class="section-heading-line">
@@ -221,6 +225,19 @@
                     <div class="certs-grid" id="certs-grid"></div>
                 </section>
 
+                <!-- EXPERIENCE -->
+                <section id="experience-view" class="view">
+                    <div class="section-heading">
+                        <div class="section-heading-line">
+                            <div class="heading-line"></div>
+                            <p>Field Work</p>
+                        </div>
+                        <h2>Experience</h2>
+                    </div>
+                    <div class="exp-list" id="exp-list"></div>
+                </section>
+
+                <!-- NETWORK -->
                 <section id="network-view" class="view">
                     <div class="section-heading">
                         <div class="section-heading-line">
@@ -229,17 +246,11 @@
                         </div>
                         <h2>Network</h2>
                     </div>
-
                     <div class="social-links">
-                        <a href="https://www.linkedin.com/in/ritun-jain-23b683309/" target="_blank" rel="noreferrer"
-                            class="social-link">
+                        <a href="https://www.linkedin.com/in/ritun-jain-23b683309/" target="_blank" rel="noreferrer" class="social-link">
                             <div class="social-link-left">
-                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path
-                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-                                    </path>
+                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                                     <rect x="2" y="9" width="4" height="12"></rect>
                                     <circle cx="4" cy="4" r="2"></circle>
                                 </svg>
@@ -248,31 +259,22 @@
                             <div class="social-link-right">
                                 <span class="social-value">Ritun Jain</span>
                                 <div class="social-status-dot"></div>
-                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="7" y1="17" x2="17" y2="7"></line>
                                     <polyline points="7 7 17 7 17 17"></polyline>
                                 </svg>
                             </div>
                         </a>
-                        <a href="https://github.com/KeyboardNoMouse" target="_blank" rel="noreferrer"
-                            class="social-link">
+                        <a href="https://github.com/KeyboardNoMouse" target="_blank" rel="noreferrer" class="social-link">
                             <div class="social-link-left">
-                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path
-                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                                    </path>
+                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                                 </svg>
                                 <span class="social-label">GitHub</span>
                             </div>
                             <div class="social-link-right">
                                 <span class="social-value">KeyboardNoMouse</span>
-                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="7" y1="17" x2="17" y2="7"></line>
                                     <polyline points="7 7 17 7 17 17"></polyline>
                                 </svg>
@@ -280,9 +282,7 @@
                         </a>
                         <a href="https://instagram.com/_ritun_07/" target="_blank" rel="noreferrer" class="social-link">
                             <div class="social-link-left">
-                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -291,9 +291,7 @@
                             </div>
                             <div class="social-link-right">
                                 <span class="social-value">@_ritun_07</span>
-                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="7" y1="17" x2="17" y2="7"></line>
                                     <polyline points="7 7 17 7 17 17"></polyline>
                                 </svg>
@@ -301,44 +299,35 @@
                         </a>
                         <a href="mailto:ritunjain246@gmail.com" class="social-link">
                             <div class="social-link-left">
-                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path
-                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                                    </path>
+                                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                     <polyline points="22,6 12,13 2,6"></polyline>
                                 </svg>
                                 <span class="social-label">Email</span>
                             </div>
                             <div class="social-link-right">
                                 <span class="social-value">ritunjain246@gmail.com</span>
-                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="7" y1="17" x2="17" y2="7"></line>
                                     <polyline points="7 7 17 7 17 17"></polyline>
                                 </svg>
                             </div>
                         </a>
                     </div>
-
                     <div class="protocol-section">
                         <div class="protocol-label">Protocol</div>
                         <p class="protocol-text">
                             Open to internship opportunities, open-source collaborations, and interesting projects at
-                            the intersection of web development and AI.
-                            <br /><br />
-                            <span class="protocol-status">Current Status: Seeking Internships &amp;
-                                Collaborations</span>
+                            the intersection of web development and AI.<br /><br />
+                            <span class="protocol-status">Current Status: Seeking Internships &amp; Collaborations</span>
                         </p>
                     </div>
                 </section>
+
             </main>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
-
 </html>

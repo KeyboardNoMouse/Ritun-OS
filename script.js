@@ -1,13 +1,22 @@
 /* --- DATA --- */
 const PROJECTS = [
     {
-        title: "NVMe-Drive-Analyzer",
+        title: "NVMe Drive Failure Predictor & Fleet Dashboard",
         subtitle: "Predictive Maintenance System",
         date: "Mar 2026",
         status: "PUBLIC",
         statusClass: "",
         desc: "An AI-powered telemetry analysis engine and full-stack web dashboard for predicting NVMe drive failures using Random Forest and SMOTE.",
         tags: ["Python", "Machine Learning", "Data Science", "Telemetry"],
+        github: "https://github.com/KeyboardNoMouse/NVMe-Drive-Failiure-Predictor",
+        demo: null,
+        images: [
+           
+            { src: "images/architecture1.png", caption: "System Architecture" },
+            { src: "images/architecture2.png", caption: "Request Lifecycle" },
+            { src: "images/screenshot2.png", caption: "Fleet Dashboard" },
+            { src: "images/screenshot1.png", caption: "Predictor" },
+        ],
     },
     {
         title: "Sky",
@@ -17,6 +26,13 @@ const PROJECTS = [
         statusClass: "s-deployed",
         desc: "Custom Discord bot engineered to automate responses and interact with server users in real-time. Integrated Google Gemini API for advanced natural language processing and intelligent conversational capabilities.",
         tags: ["Python", "Google Gemini API", "Discord.py", "NLP"],
+        github: "https://github.com/KeyboardNoMouse/Discord-AI-Chatbot",
+        demo: null,
+        images: [
+            // Add your image paths here, e.g.:
+            // { src: "images/sky-arch.png", caption: "Bot Architecture" },
+            // { src: "images/sky-demo.png", caption: "Conversation Demo" },
+        ],
     },
 ];
 
@@ -24,19 +40,19 @@ const EXPERIENCES = [
     {
         role: "Student Council Member (Media Team)",
         org: "ALPHA Innovation and Tinkerers' Lab, NIE Mysuru",
-        period: "Feb 2026 – Present",
+        period: "Apr 2026 – Present",
         skills: "Learning text and keyframe animations using After Effects and Premiere Pro. Representing the lab at external company project expos and industry showcases.",
     },
     {
-        role: "Internship Trainee",
+        role: "Technical Intern",
         org: "Comedkares",
-        period: "Oct 2024 – Jan 2025",
-        skills: "Worked with industry-standard tools including OnShape for 3D modelling and Figma for UI/UX prototyping.",
+        period: "Mar 2026 – Present",
+        skills: "Working with industry-standard tools including OnShape for 3D modelling and Figma for UI/UX prototyping.",
     },
     {
         role: "Student Volunteer",
         org: "Youth For Seva",
-        period: "Nov 2025 – Present",
+        period: "2024 – Present",
         skills: "Actively participating in community impact events such as city cleaning drives and teaching school students in underserved areas.",
     },
 ];
@@ -179,24 +195,134 @@ bootIdle.addEventListener("click", () => {
     }, 75);
 });
 
-/* --- POPULATE DATA --- */
+/* --- POPULATE PROJECTS --- */
+document.getElementById("projects-list").innerHTML = PROJECTS.map((p, i) => {
 
-// Projects
-document.getElementById("projects-list").innerHTML = PROJECTS.map((p, i) => `
-    <div class="project-card" data-num="0${i + 1}">
-        <div class="project-header">
-            <div>
-                <div class="project-title">${p.title} <span style="color:#334155;font-weight:400;font-size:0.9rem">— ${p.subtitle}</span></div>
-                <div class="project-date">${p.date}</div>
+    // Build link buttons
+    const githubBtn = p.github ? `
+        <a href="${p.github}" target="_blank" rel="noreferrer" class="project-link-btn project-link-github">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            Source
+        </a>` : "";
+
+    const demoBtn = p.demo ? `
+        <a href="${p.demo}" target="_blank" rel="noreferrer" class="project-link-btn project-link-demo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            Live Demo
+        </a>` : "";
+
+    // Build image gallery
+    const hasImages = p.images && p.images.length > 0;
+
+    return `
+        <div class="project-card" data-num="0${i + 1}">
+            <div class="project-header">
+                <div>
+                    <div class="project-title">${p.title} <span style="color:#334155;font-weight:400;font-size:0.9rem">— ${p.subtitle}</span></div>
+                    <div class="project-date">${p.date}</div>
+                </div>
+                <div class="project-status ${p.statusClass}">${p.status}</div>
             </div>
-            <div class="project-status ${p.statusClass}">${p.status}</div>
+            <div class="project-desc">${p.desc}</div>
+            <div class="project-tags">${p.tags.map(t => `<span class="project-tag">${t}</span>`).join("")}</div>
+            <div class="project-footer">
+                <div class="project-footer-top">
+                    <div class="project-links">
+                        ${githubBtn}
+                        ${demoBtn}
+                    </div>
+                    ${`
+        <button class="gallery-toggle" data-project="${i}" onclick="toggleGallery(${i})">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+            ${hasImages ? `Architecture & Screenshots (${p.images.length})` : "Architecture & Screenshots"}
+            <svg class="gallery-toggle-chevron" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </button>`}
+                </div>
+                <div class="gallery-panel" id="gallery-${i}">
+                    ${hasImages
+                        ? `<div class="gallery-grid">
+                            ${p.images.map((img, j) => `
+                                <div class="gallery-item" onclick="openLightbox('${img.src}', '${img.caption || ""}')">
+                                    <img src="${img.src}" alt="${img.caption || `Screenshot ${j + 1}`}" loading="lazy" />
+                                    ${img.caption ? `<div class="gallery-caption">${img.caption}</div>` : ""}
+                                </div>
+                            `).join("")}
+                           </div>`
+                        : `<div class="gallery-empty">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <p>No images yet</p>
+                                <span>Add image paths to the PROJECTS array in script.js</span>
+                            </div>`
+                    }
+                </div>
+            </div>
         </div>
-        <div class="project-desc">${p.desc}</div>
-        <div class="project-tags">${p.tags.map(t => `<span class="project-tag">${t}</span>`).join("")}</div>
-    </div>
-`).join("");
+    `;
+}).join("");
 
-// Experiences — separate section
+/* --- GALLERY TOGGLE --- */
+function toggleGallery(idx) {
+    const panel = document.getElementById(`gallery-${idx}`);
+    const btn = document.querySelector(`[data-project="${idx}"]`);
+    const isOpen = panel.classList.contains("open");
+    panel.classList.toggle("open", !isOpen);
+    btn.classList.toggle("active", !isOpen);
+}
+
+/* --- LIGHTBOX --- */
+function openLightbox(src, caption) {
+    const existing = document.getElementById("lightbox-overlay");
+    if (existing) existing.remove();
+
+    const overlay = document.createElement("div");
+    overlay.id = "lightbox-overlay";
+    overlay.innerHTML = `
+        <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
+        <div class="lightbox-box">
+            <button class="lightbox-close" onclick="closeLightbox()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <img src="${src}" alt="${caption}" class="lightbox-img" />
+            ${caption ? `<div class="lightbox-caption">${caption}</div>` : ""}
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    requestAnimationFrame(() => overlay.classList.add("visible"));
+    document.addEventListener("keydown", lightboxKeyHandler);
+}
+
+function closeLightbox() {
+    const overlay = document.getElementById("lightbox-overlay");
+    if (!overlay) return;
+    overlay.classList.remove("visible");
+    setTimeout(() => overlay.remove(), 250);
+    document.removeEventListener("keydown", lightboxKeyHandler);
+}
+
+function lightboxKeyHandler(e) {
+    if (e.key === "Escape") closeLightbox();
+}
+
+/* --- POPULATE EXPERIENCES --- */
 const expListEl = document.getElementById("exp-list");
 if (expListEl) {
     expListEl.innerHTML = EXPERIENCES.map(e => `
@@ -213,7 +339,7 @@ if (expListEl) {
     `).join("");
 }
 
-// Certs
+/* --- POPULATE CERTS --- */
 document.getElementById("certs-grid").innerHTML = CERTS.map((c, i) => `
     <div class="cert-card">
         <div class="cert-issuer">${c.issuer}</div>

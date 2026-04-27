@@ -11,10 +11,10 @@ const PROJECTS = [
         github: "https://github.com/KeyboardNoMouse/NVMe-Drive-Failiure-Predictor",
         demo: null,
         images: [
-            // Add your image paths here, e.g.: "images/nvme-architecture.png"
-            // { src: "images/nvme-arch.png", caption: "System Architecture" },
-            // { src: "images/nvme-dashboard.png", caption: "Fleet Dashboard" },
-            // { src: "images/nvme-model.png", caption: "ML Pipeline" },
+            { src: "images/architecture1.png", caption: "System Architecture" },
+            { src: "images/architecture2.png", caption: "Request Lifecycle" },
+            { src: "images/screenshot1.png", caption: "Fleet Dashboard" },
+            { src: "images/screenshot2.png", caption: "Predictor" },
         ],
     },
     {
@@ -28,9 +28,10 @@ const PROJECTS = [
         github: "https://github.com/KeyboardNoMouse/Discord-AI-Chatbot",
         demo: null,
         images: [
-            // Add your image paths here, e.g.:
-            // { src: "images/sky-arch.png", caption: "Bot Architecture" },
-            // { src: "images/sky-demo.png", caption: "Conversation Demo" },
+            { src: "images/image4.png", caption: "Bot Architecture" },
+            { src: "images/image2.png", caption: "Conversation Demo" },
+            { src: "images/image3.png", caption: "Conversation Demo" },
+            { src: "images/image1.png", caption: "Discord Profile" },
         ],
     },
 ];

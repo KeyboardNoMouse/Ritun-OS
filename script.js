@@ -29,10 +29,10 @@ const PROJECTS = [
         github: "https://github.com/KeyboardNoMouse/Discord-AI-Chatbot",
         demo: null,
         images: [
-             { src: "images/image (4).png", caption: "Bot Architecture" },
-             { src: "images/image (2).png", caption: "Conversation Demo" },
-            { src: "images/image (3).png", caption: "Conversation Demo" },
-            { src: "images/image (1).png", caption: "Bot Profile" },
+             { src: "images/image4.png", caption: "Bot Architecture" },
+             { src: "images/image2.png", caption: "Conversation Demo" },
+            { src: "images/image3.png", caption: "Conversation Demo" },
+            { src: "images/image1.png", caption: "Bot Profile" },
         ],
     },
 ];

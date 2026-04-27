@@ -13,8 +13,8 @@ const PROJECTS = [
         images: [
             { src: "images/architecture1.png", caption: "System Architecture" },
             { src: "images/architecture2.png", caption: "Request Lifecycle" },
-            { src: "images/screenshot1.png", caption: "Predictor" },
             { src: "images/screenshot2.png", caption: "Fleet Dashboard" },
+            { src: "images/screenshot1.png", caption: "Predictor" },
         ],
     },
     {

@@ -29,9 +29,10 @@ const PROJECTS = [
         github: "https://github.com/KeyboardNoMouse/Discord-AI-Chatbot",
         demo: null,
         images: [
-            // Add your image paths here, e.g.:
-            // { src: "images/sky-arch.png", caption: "Bot Architecture" },
-            // { src: "images/sky-demo.png", caption: "Conversation Demo" },
+             { src: "images/image (4).png", caption: "Bot Architecture" },
+             { src: "images/image (2).png", caption: "Conversation Demo" },
+            { src: "images/image (3).png", caption: "Conversation Demo" },
+            { src: "images/image (1).png", caption: "Bot Profile" },
         ],
     },
 ];

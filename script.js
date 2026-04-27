@@ -11,11 +11,10 @@ const PROJECTS = [
         github: "https://github.com/KeyboardNoMouse/NVMe-Drive-Failiure-Predictor",
         demo: null,
         images: [
-           
-            { src: "images/architecture1.png", caption: "System Architecture" },
-            { src: "images/architecture2.png", caption: "Request Lifecycle" },
-            { src: "images/screenshot2.png", caption: "Fleet Dashboard" },
-            { src: "images/screenshot1.png", caption: "Predictor" },
+            // Add your image paths here, e.g.: "images/nvme-architecture.png"
+            // { src: "images/nvme-arch.png", caption: "System Architecture" },
+            // { src: "images/nvme-dashboard.png", caption: "Fleet Dashboard" },
+            // { src: "images/nvme-model.png", caption: "ML Pipeline" },
         ],
     },
     {
@@ -29,10 +28,9 @@ const PROJECTS = [
         github: "https://github.com/KeyboardNoMouse/Discord-AI-Chatbot",
         demo: null,
         images: [
-             { src: "images/image4.png", caption: "Bot Architecture" },
-             { src: "images/image2.png", caption: "Conversation Demo" },
-            { src: "images/image3.png", caption: "Conversation Demo" },
-            { src: "images/image1.png", caption: "Bot Profile" },
+            // Add your image paths here, e.g.:
+            // { src: "images/sky-arch.png", caption: "Bot Architecture" },
+            // { src: "images/sky-demo.png", caption: "Conversation Demo" },
         ],
     },
 ];
@@ -41,19 +39,19 @@ const EXPERIENCES = [
     {
         role: "Student Council Member (Media Team)",
         org: "ALPHA Innovation and Tinkerers' Lab, NIE Mysuru",
-        period: "Apr 2026 – Present",
+        period: "Feb 2026 – Present",
         skills: "Learning text and keyframe animations using After Effects and Premiere Pro. Representing the lab at external company project expos and industry showcases.",
     },
     {
-        role: "Technical Intern",
+        role: "Internship Trainee",
         org: "Comedkares",
-        period: "Mar 2026 – Present",
+        period: "Oct 2024 – Jan 2025",
         skills: "Working with industry-standard tools including OnShape for 3D modelling and Figma for UI/UX prototyping.",
     },
     {
         role: "Student Volunteer",
         org: "Youth For Seva",
-        period: "2024 – Present",
+        period: "Nov 2025 – Present",
         skills: "Actively participating in community impact events such as city cleaning drives and teaching school students in underserved areas.",
     },
 ];
